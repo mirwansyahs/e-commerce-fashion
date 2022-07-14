@@ -13,6 +13,7 @@ class UserSeeder extends Seeder
             [
                 'username' => 'ali',
                 'password'    => password_hash("12345", PASSWORD_DEFAULT),
+                'image'    => 'avatar-1.png',
                 'first_name'    => 'Ali',
                 'last_name'    => 'Abdurohman',
                 'telephone'    => '0812334343',
@@ -23,6 +24,7 @@ class UserSeeder extends Seeder
             [
                 'username' => 'user',
                 'password'    => password_hash("12345", PASSWORD_DEFAULT),
+                'image'    => 'avatar-1.png',
                 'first_name'    => 'User',
                 'last_name'    => '',
                 'telephone'    => '081233434392',

@@ -23,6 +23,10 @@ class User extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
+            'image' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'first_name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
