@@ -7,7 +7,7 @@
         </div>
 
         <div class="card-body">
-            <?php if(session()->getFlashdata('error')) : ?>
+            <?php if(session()->getFlashdata('error')) { ?>
                 <div class="alert alert-danger alert-dismissible show fade">
                     <div class="alert-body">
                         <button class="close" data-dismiss="alert">x</button>
@@ -15,8 +15,16 @@
                         <?= session()->getFlashdata('error'); ?>
                     </div>
                 </div>
-            <?php endif; ?>
-            <form method="POST" action="proccess" class="needs-validation" novalidate="">
+            <?php } else if(session()->getFlashdata('success')) { ?>
+                <div class="alert alert-success alert-dismissible show fade">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">x</button>
+                        <?= session()->getFlashdata('success'); ?>
+                    </div>
+                </div>
+            <?php } ?>
+
+            <form method="POST" action="login" class="needs-validation" novalidate="">
                 <?= csrf_field(); ?>
                 <div class="form-group">
                     <label for="no_hp">No. Telepon</label>
@@ -30,7 +38,7 @@
                     <div class="d-block">
                     	<label for="password" class="control-label">Kata Sandi</label>
                       <div class="float-right">
-                        <a href="auth-forgot-password.html" class="text-small">
+                        <a href="lupa-kata-sandi" class="text-small">
                           Lupa Kata Sandi?
                         </a>
                       </div>

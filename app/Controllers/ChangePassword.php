@@ -14,7 +14,9 @@ class ChangePassword extends BaseController
 
     public function index()
     {
+        $id = session('id');
         $data['title'] = 'Ubah Kata Sandi';
+        $data['profile'] = $this->profile->find($id);
         return view('back-end/changePassword', $data);
     }
 
@@ -52,8 +54,10 @@ class ChangePassword extends BaseController
 
 
         if (!$doValid) {
+            $id = session('id');
             $data = [
                 'title' => 'Ubah Kata Sandi',
+                'profile' => $this->profile->find($id),
                 'validation' => $this->validator
             ];
 
@@ -61,22 +65,26 @@ class ChangePassword extends BaseController
         } else {
             $old_password = $this->request->getVar('old_password');
             $new_password = $this->request->getVar('new_password');
-            $where = [
-                'id' => session('id'),
-                'password' => password_verify($old_password, PASSWORD_DEFAULT)
-            ];
 
-            $profile = $this->profile->find($where);
+            $id = session('id');
+            $query = $this->db->table('user')->getWhere(['id' => $id]);
+            $profile = $query->getRow();
+                    
+            if ($profile) {
+                $password = password_verify($old_password, $profile->password);
+                if ($password) {
+                    $id = session('id');
+                    $param = [
+                        'password' => password_hash($new_password, PASSWORD_DEFAULT),
+                        'modified_at' => Time::now()
+                    ];
     
-            if ($profile > 0) {
-                $id = session('id');
-                $param = [
-                    'password' => password_hash($new_password, PASSWORD_DEFAULT)
-                ];
-
-                $this->profile->update($id, $param);
-
-                return redirect()->to(site_url('ubah-kata-sandi'))->with('success', 'Kata sandi berhasil diubah!');
+                    $this->profile->update($id, $param);
+    
+                    return redirect()->to(site_url('ubah-kata-sandi'))->with('success', 'Kata sandi berhasil diubah!');
+                } else {
+                    return redirect()->to(site_url('ubah-kata-sandi'))->with('error', 'Kata sandi lama tidak sama!');
+                }
             } else {
                 return redirect()->to(site_url('ubah-kata-sandi'))->with('error', 'Kata sandi gagal diubah!');
             }

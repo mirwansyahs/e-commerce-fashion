@@ -13,7 +13,7 @@
             </div>
           </div>
           <div class="section-body">
-            <h2 class="section-title">Hi, Ali!</h2>
+            <h2 class="section-title">Hi, <?= $profile['first_name']; ?>!</h2>
             <p class="section-lead">
               Ubah kata sandi anda di halaman ini.
             </p>
@@ -46,7 +46,7 @@
                         <div class="row">
                           <div class="form-group col-lg-12">
                             <label>Kata Sandi Lama</label>
-                            <input type="password" class="form-control <?php if($validation->getError('new_password')): ?>is-invalid<?php endif ?>" name="old_password">
+                            <input type="password" class="form-control <?php if($validation->getError('old_password')): ?>is-invalid<?php endif ?>" name="old_password">
                             <?php if ($validation->getError('old_password')): ?>
                               <div class="invalid-feedback">
                                   <?= $validation->getError('old_password') ?>
@@ -64,7 +64,7 @@
                           </div>
                           <div class="form-group col-md-6 col-12">
                             <label>Konfirmasi Kata Sandi</label>
-                            <input type="password" class="form-control <?php if($validation->getError('old_password')): ?>is-invalid<?php endif ?>" name="confirm_password">
+                            <input type="password" class="form-control <?php if($validation->getError('confirm_password')): ?>is-invalid<?php endif ?>" name="confirm_password">
                             <?php if ($validation->getError('confirm_password')): ?>
                               <div class="invalid-feedback">
                                   <?= $validation->getError('confirm_password') ?>

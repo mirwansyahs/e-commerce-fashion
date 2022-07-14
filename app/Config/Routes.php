@@ -39,7 +39,11 @@ $routes->get('/', 'Home::index');
 
 // Auth
 $routes->get('/auth', 'Auth::index');
-$routes->post('/proccess', 'Auth::proccess');
+$routes->post('/login', 'Auth::proccess');
+$routes->get('/lupa-kata-sandi', 'Auth::forgotPassword');
+$routes->post('/forgotpassword', 'Auth::forgotPasswordProccess');
+$routes->get('/setel-ulang-kata-sandi', 'Auth::resetPassword');
+$routes->post('/resetPassword', 'Auth::resetPasswordProccess');
 $routes->get('/keluar', 'Auth::logout');
 
 $routes->get('/dashboard', 'Dashboard::index');
