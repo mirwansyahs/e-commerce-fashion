@@ -48,6 +48,16 @@ class Auth extends BaseController
         }
     }
 
+    public function register()
+    {
+        if (session('id')) {
+            session()->remove('telp');
+            return redirect()->to(site_url('dashboard'));
+        }
+        $data['title'] = 'Daftar';
+        return view('auth/register', $data);
+    }
+
     public function forgotPassword()
     {
         $data['title'] = 'Lupa Kata Sandi';
@@ -78,7 +88,7 @@ class Auth extends BaseController
     public function resetPassword()
     {
         if (!session('telp')) {
-            return redirect()->to(site_url('auth'));
+            return redirect()->to(site_url('masuk'));
         }
 
         $data['title'] = 'Setel Ulang Kata Sandi';
@@ -111,7 +121,7 @@ class Auth extends BaseController
 
         if (!$doValid) {
             if (!session('telp')) {
-                return redirect()->to(site_url('auth'));
+                return redirect()->to(site_url('masuk'));
             }
 
             $data = [
@@ -130,13 +140,13 @@ class Auth extends BaseController
             $this->profile->update($id, $param);
             session()->remove('id');
             session()->remove('telp');
-            return redirect()->to(site_url('auth'))->with('success', 'Kata sandi berhasil diubah!');
+            return redirect()->to(site_url('masuk'))->with('success', 'Kata sandi berhasil diubah!');
         }
     }
     
     public function logout()
     {
         session()->remove('id');
-        return redirect()->to(site_url('auth'));
+        return redirect()->to(site_url('masuk'));
     }
 }

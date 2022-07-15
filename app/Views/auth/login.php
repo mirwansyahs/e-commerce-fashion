@@ -51,10 +51,15 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Login
+                      Masuk
                     </button>
                 </div>
+
             </form>
         </div>
+    </div>
+    
+    <div class="mt-5 text-muted text-center">
+        Belum punya akun? Silahkan <a href="daftar">Daftar</a>
     </div>
 <?= $this->endSection() ?>

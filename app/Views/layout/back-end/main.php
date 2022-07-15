@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title><?= $title; ?> | LEON.ID</title>
+  <?php 
+    $db = db_connect();
+    $query = $db->table('store')->getWhere([])->getRow(); 
+  ?>
+  <title><?= $title; ?> | <?= $query->name; ?></title>
+
+  <!-- Favicons -->
+  <link href="<?= '/img/logo/' . $query->image; ?>" rel="icon">
+  <link href="<?= '/img/logo/' . $query->image; ?>" rel="apple-touch-icon">
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="<?= base_url('back-end/dist/assets/modules/bootstrap/css/bootstrap.min.css'); ?>">
@@ -230,8 +238,8 @@
               $db = db_connect();
               $user = $db->table('user')->getWhere(['id' => $id])->getRow();
             ?>
-            <img alt="image" src="/img/backend/avatar/<?= $user->image; ?>" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Hi, <?= $user->first_name; ?> <?= $user->last_name; ?></div></a>
+            <img alt="image" src="/img/avatar/<?= $user->image; ?>" class="rounded-circle mr-1">
+            <div class="d-sm-none d-lg-inline-block">Hi, <?= $user->username; ?></div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <a href="profil" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profil
@@ -258,7 +266,7 @@
 
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2022 <div class="bullet"></div> Design By <a href="https://nauval.in/">LEON.ID</a>
+          Copyright &copy; 2022 <div class="bullet"></div> Design By <a href="/"><?= $query->name; ?></a>
         </div>
         <div class="footer-right">
           

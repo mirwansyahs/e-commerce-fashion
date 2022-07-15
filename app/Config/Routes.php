@@ -38,8 +38,10 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 
 // Auth
-$routes->get('/auth', 'Auth::index');
+$routes->get('/masuk', 'Auth::index');
 $routes->post('/login', 'Auth::proccess');
+$routes->get('/daftar', 'Auth::register');
+$routes->post('/register', 'Auth::save');
 $routes->get('/lupa-kata-sandi', 'Auth::forgotPassword');
 $routes->post('/forgotpassword', 'Auth::forgotPasswordProccess');
 $routes->get('/setel-ulang-kata-sandi', 'Auth::resetPassword');
@@ -51,6 +53,8 @@ $routes->get('/profil', 'Profile::index');
 $routes->post('/save', 'Profile::save');
 $routes->get('/ubah-kata-sandi', 'ChangePassword::index');
 $routes->post('/changepassword', 'ChangePassword::save');
+$routes->get('/pengaturan', 'Setting::index');
+$routes->post('/savesetting', 'Setting::save');
 
 /*
  * --------------------------------------------------------------------

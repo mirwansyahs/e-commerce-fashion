@@ -18,20 +18,21 @@
             <p class="section-lead">
               Ubah informasi tentang diri anda di halaman ini.
             </p>
-                <?php if(session()->getFlashdata('success')) : ?>
-                    <div class="alert alert-success alert-dismissible show fade">
-                        <div class="alert-body">
-                            <button class="close" data-dismiss="alert">x</button>
-                            <?= session()->getFlashdata('success'); ?>
-                        </div>
+
+            <?php if(session()->getFlashdata('success')) : ?>
+                <div class="alert alert-success alert-dismissible show fade">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">x</button>
+                        <?= session()->getFlashdata('success'); ?>
                     </div>
-                <?php endif; ?>
+                </div>
+            <?php endif; ?>
 
             <div class="row mt-sm-4">
               <div class="col-12 col-md-12 col-lg-5">
                 <div class="card profile-widget">
                   <div class="profile-widget-header">                     
-                    <img alt="image" src="/img/backend/avatar/<?= $profile['image']; ?>" class="rounded-circle profile-widget-picture">
+                    <img alt="image" src="/img/avatar/<?= $profile['image']; ?>" class="rounded-circle profile-widget-picture">
                   </div>
                   <div class="profile-widget-description">
                     <div class="profile-widget-name"><?= $profile['username']; ?> <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> <?= $profile['level']; ?></div></div>
@@ -61,6 +62,7 @@
 
               <div class="col-12 col-md-12 col-lg-7">
                 <div class="card">
+                  <?php $validation =  \Config\Services::validation(); ?>
                   <form method="post" action="save" class="needs-validation" novalidate="" enctype="multipart/form-data">
                     <?php csrf_field(); ?>
                     <div class="card-header">
@@ -74,10 +76,12 @@
                           </div>
                           <div class="form-group col-lg-12">
                             <label>Username</label>
-                            <input type="text" class="form-control" name="username" value="<?= $profile['username']; ?>" required>
-                            <div class="invalid-feedback">
-                              Username tidak boleh kosong
-                            </div>
+                            <input type="text" class="form-control <?php if($validation->getError('username')): ?>is-invalid<?php endif ?>" name="username" value="<?= $profile['username']; ?>">
+                            <?php if ($validation->getError('username')): ?>
+                              <div class="invalid-feedback">
+                                  <?= $validation->getError('username') ?>
+                              </div>                                
+                            <?php endif; ?>
                           </div>
                           <div class="form-group col-md-6 col-12">
                             <label>Nama Depan</label>

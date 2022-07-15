@@ -32,7 +32,7 @@
                     </button>
 
                     <div class="mt-4 text-muted text-center text-decoration-none">
-                        <a href="auth">Kembali</a>
+                        <a href="masuk">Kembali</a>
                     </div>
                 </div>
             </form>
