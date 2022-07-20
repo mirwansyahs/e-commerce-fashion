@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Models\SettingModels;
+use App\Models\SettingModel;
 use CodeIgniter\I18n\Time;
 
 class Setting extends BaseController
 {
     public function __construct()
     {
-        $this->setting = new SettingModels();
+        $this->setting = new SettingModel();
     }
 
     public function index()
@@ -62,7 +62,7 @@ class Setting extends BaseController
             'email' => $email,
             'telephone' => $telephone,
             'address' => $address,
-            'modified_at' => Time::now()
+            'modified_at' => Time::now('Asia/Jakarta', 'en_ID')
         ];
 
         $this->setting->update($id, $params);

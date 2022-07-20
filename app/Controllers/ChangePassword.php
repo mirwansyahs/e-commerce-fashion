@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Models\ProfileModels;
+use App\Models\ProfileModel;
 use CodeIgniter\I18n\Time;
 
 class ChangePassword extends BaseController
 {
     public function __construct()
     {
-        $this->profile = new ProfileModels();
+        $this->profile = new ProfileModel();
     }
 
     public function index()
@@ -64,7 +64,7 @@ class ChangePassword extends BaseController
             return view('back-end/changePassword', $data);
         } else {
             $old_password = $this->request->getVar('old_password');
-            $new_password = $this->request->getVar('new_password');
+            $new_password = $this->request->getVar('confirm_password');
 
             $id = session('id');
             $query = $this->db->table('user')->getWhere(['id' => $id]);
@@ -76,7 +76,7 @@ class ChangePassword extends BaseController
                     $id = session('id');
                     $param = [
                         'password' => password_hash($new_password, PASSWORD_DEFAULT),
-                        'modified_at' => Time::now()
+                        'modified_at' => Time::now('Asia/Jakarta', 'en_ID')
                     ];
     
                     $this->profile->update($id, $param);

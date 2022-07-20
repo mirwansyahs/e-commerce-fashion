@@ -28,17 +28,29 @@ class UserAddress extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'country' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+            ],
+            'province' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+            ],
             'city' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+            ],
+            'district' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+            ],
+            'village' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
             'postal_code' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '5',
-            ],
-            'country' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
             ],
             'telephone' => [
                 'type'       => 'VARCHAR',

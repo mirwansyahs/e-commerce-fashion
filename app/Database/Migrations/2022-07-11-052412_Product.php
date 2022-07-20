@@ -19,6 +19,10 @@ class Product extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'image' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'desc' => [
                 'type'       => 'TEXT',
                 'null'       => true,
@@ -28,19 +32,23 @@ class Product extends Migration
                 'constraint'     => 11,
                 'unsigned'       => true,
             ],
-            'inventory_id' => [
+            'quantity' => [
                 'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
-            ],
-            'price' => [
-                'type'           => 'DECIMAL',
                 'constraint'     => 11,
             ],
             'discount_id' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
+                'null'           => true,
+            ],
+            'original_price' => [
+                'type'           => 'DECIMAL',
+                'constraint'     => 11,
+            ],
+            'price' => [
+                'type'           => 'DECIMAL',
+                'constraint'     => 11,
             ],
             'created_at' => [
                 'type' => 'TIMESTAMP',

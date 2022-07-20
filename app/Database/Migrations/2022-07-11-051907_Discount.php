@@ -15,21 +15,21 @@ class Discount extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'name' => [
+            'discount_name' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 255,
             ],
-            'desc' => [
+            'discount_desc' => [
                 'type'           => 'TEXT',
                 'null'           => true,
             ],
             'discount_percent' => [
-                'type'           => 'DECIMAL',
-                'constraint'     => 2,
+                'type'           => 'DOUBLE',
+                'null'           => false,
             ],
             'active' => [
-                'type'           => 'BOOLEAN',
-                'null'           => true,
+                'type'           => 'ENUM',
+                'constraint'     => ['active', 'failed'],
             ],
             'created_at' => [
                 'type' => 'TIMESTAMP',

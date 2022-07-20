@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Models\ProfileModels;
+use App\Models\ProfileModel;
 use CodeIgniter\I18n\Time;
 
 class Profile extends BaseController
 {
     public function __construct()
     {
-        $this->profile = new ProfileModels();
+        $this->profile = new ProfileModel();
     }
 
     public function index()
@@ -26,7 +26,7 @@ class Profile extends BaseController
     {
         $doValid = $this->validate([
             'username' => [
-                'label' => 'username',
+                'label' => 'Username',
                 'rules' => 'required|alpha_dash',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong',
@@ -79,7 +79,7 @@ class Profile extends BaseController
                 'last_name' => $last_name,
                 'telephone' => $telephone,
                 'image' => $pathImage,
-                'modified_at' => Time::now()
+                'modified_at' => Time::now('Asia/Jakarta', 'en_ID')
             ];
             
             $this->profile->update($id, $params);

@@ -15,11 +15,11 @@ class ProductCategory extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'name' => [
+            'category_name' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 255,
             ],
-            'desc' => [
+            'category_desc' => [
                 'type'       => 'TEXT',
                 'null'       => true,
             ],

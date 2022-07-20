@@ -119,8 +119,5 @@
           </div>
         </section>
     </div>
-
-  <!-- JS Libraies -->
-  <script src="<?= base_url('back-end/dist/assets/modules/sweetalert/sweetalert.min.js'); ?>" type="text/javascript"></script>
   
 <?= $this->endSection() ?>

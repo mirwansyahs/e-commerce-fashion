@@ -2,14 +2,16 @@
 
 namespace App\Controllers;
 
-use App\Models\ProfileModels;
+use App\Models\ProfileModel;
+use App\Models\UserAddressModel;
 use CodeIgniter\I18n\Time;
 
 class Auth extends BaseController
 {
     public function __construct()
     {
-        $this->profile = new ProfileModels();
+        $this->profile = new ProfileModel();
+        $this->userAddress = new UserAddressModel();
     }
 
     public function index()
@@ -56,6 +58,117 @@ class Auth extends BaseController
         }
         $data['title'] = 'Daftar';
         return view('auth/register', $data);
+    }
+
+    public function save()
+    {
+        $doValid = $this->validate([
+            'username' => [
+                'label' => 'Username',
+                'rules' => 'required|alpha_dash',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                    'alpha_dash' => '{field} hanya boleh berisi karakter alfanumerik, garis bawah, dan tanda hubung',
+                ]
+            ],
+            'telephone' => [
+                'label' => 'No. telepon',
+                'rules' => 'required|is_unique[user.telephone]|min_length[10]|max_length[13]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                    'is_unique' => '{field} sudah terdaftar',
+                    'min_length' => '{field} harus memiliki panjang setidaknya {param} karakter',
+                    'max_length' => '{field} maksimal memiliki panjang {param} karakter',
+                ]
+            ],
+            'password' => [
+                'label' => 'Kata sandi',
+                'rules' => 'required|min_length[5]|matches[password2]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                    'min_length' => '{field} harus memiliki panjang setidaknya {param} karakter',
+                    'matches' => '{field} tidak sama dengan {param}',
+                ]
+            ],
+            'password2' => [
+                'label' => 'Konfirmasi kata sandi',
+                'rules' => 'required|min_length[5]|matches[password]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                    'min_length' => '{field} harus memiliki panjang setidaknya {param} karakter',
+                    'matches' => '{field} tidak sama dengan {param}',
+                ]
+            ],
+            'postal_code' => [
+                'label' => 'Kode pos',
+                'rules' => 'required|max_length[5]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                    'max_length' => '{field} maksimal memiliki panjang {param} karakter',
+                ]
+            ],
+        ]);
+
+        if (!$doValid) {
+            if (session('id')) {
+                session()->remove('telp');
+                return redirect()->to(site_url('dashboard'));
+            }
+            $data = [
+                'title' => 'Daftar',
+                'validation' => $this->validator
+            ];
+            return view('auth/register', $data);
+        } else {
+            $first_name = $this->request->getVar('first_name');
+            $last_name = $this->request->getVar('last_name');
+            $username = $this->request->getVar('username');
+            $email = $this->request->getVar('email');
+            $telephone = $this->request->getVar('telephone');
+            $password = $this->request->getVar('password2');
+            $country = $this->request->getVar('country');
+            $province = $this->request->getVar('province');
+            $city = $this->request->getVar('city');
+            $district = $this->request->getVar('district');
+            $village = $this->request->getVar('village');
+            $postal_code = $this->request->getVar('postal_code');
+            $address = $this->request->getVar('address');
+
+            $user = [
+                'first_name' => $first_name,
+                'last_name' => $last_name,
+                'username' => $username,
+                'email' => $email,
+                'telephone' => $telephone,
+                'password' => $password,
+                'image' => 'avatar-1.png',
+                'level' => 'user',
+                'created_at' => Time::now('Asia/Jakarta', 'en_ID'),
+                'modified_at' => Time::now('Asia/Jakarta', 'en_ID'),
+            ];
+
+            $this->profile->insert($user);
+
+            $query = $this->db->table('user')->getWhere(['telephone' => $telephone])->getRow();
+            
+            if ($query) {
+                $user_id = $query->id;
+                $userAddress = [
+                    'user_id' => $user_id,
+                    'address_line1' => $address,
+                    'country' => $country,
+                    'province' => $province,
+                    'city' => $city,
+                    'district' => $district,
+                    'village' => $village,
+                    'postal_code' => $postal_code,
+                    'telephone' => $telephone,
+                ];
+    
+                $this->userAddress->insert($userAddress);
+                return redirect()->to(site_url('masuk'))->with('success', 'Selamat akun anda sudah terdaftar!');
+            }
+        }
     }
 
     public function forgotPassword()
@@ -135,7 +248,7 @@ class Auth extends BaseController
             $id = session('id');
             $param = [
                 'password' => password_hash($new_password, PASSWORD_DEFAULT),
-                'modified_at' => Time::now()
+                'modified_at' => Time::now('Asia/Jakarta', 'en_ID')
             ];
             $this->profile->update($id, $param);
             session()->remove('id');

@@ -49,10 +49,37 @@ $routes->post('/resetPassword', 'Auth::resetPasswordProccess');
 $routes->get('/keluar', 'Auth::logout');
 
 $routes->get('/dashboard', 'Dashboard::index');
+
+$routes->get('/kategori', 'Category::index');
+$routes->get('/tambah-kategori', 'Category::add');
+$routes->post('/savecategory', 'Category::save');
+$routes->get('/edit-kategori/(:num)', 'Category::edit/$1');
+$routes->put('/updatecategory/(:any)', 'Category::update/$1');
+$routes->delete('/hapus-kategori/(:segment)', 'Category::delete/$1');
+
+$routes->get('/diskon', 'Discount::index');
+$routes->get('/tambah-diskon', 'Discount::add');
+$routes->post('/savediscount', 'Discount::save');
+$routes->get('/edit-diskon/(:num)', 'Discount::edit/$1');
+$routes->put('/updatediscount/(:any)', 'Discount::update/$1');
+$routes->delete('/hapus-diskon/(:segment)', 'Discount::delete/$1');
+
+$routes->get('/produk', 'Product::index');
+$routes->get('/tambah-produk', 'Product::add');
+$routes->post('/saveproduct', 'Product::save');
+$routes->get('/edit-produk/(:num)', 'Product::edit/$1');
+$routes->get('/detail-produk/(:num)', 'Product::detail/$1');
+$routes->put('/updateproduct/(:any)', 'Product::update/$1');
+$routes->delete('/hapus-produk/(:segment)', 'Product::delete/$1');
+
+$routes->get('/pelanggan', 'Costumer::index');
+
 $routes->get('/profil', 'Profile::index');
 $routes->post('/save', 'Profile::save');
+
 $routes->get('/ubah-kata-sandi', 'ChangePassword::index');
 $routes->post('/changepassword', 'ChangePassword::save');
+
 $routes->get('/pengaturan', 'Setting::index');
 $routes->post('/savesetting', 'Setting::save');
 

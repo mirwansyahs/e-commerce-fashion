@@ -74,6 +74,16 @@ class Filters extends BaseConfig
         'isLoggedIn' => [
             'before' => [
                 'dashboard',
+                'kategori',
+                'produk',
+                'diskon',
+                'order-masuk',
+                'order-selesai',
+                'pelanggan',
+                'chat',
+                'profil',
+                'ubah-kata-sandi',
+                'pengaturan',
             ]
         ]
     ];
