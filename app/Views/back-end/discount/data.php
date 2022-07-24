@@ -65,8 +65,8 @@
                           <?php } ?>
                         </td>
                         <td>
-                          <a href="edit-diskon/<?= $d['id']?>" class="btn btn-success">Edit</a>
-                          <form action="hapus-diskon/<?= $d['id']?>" method="post" class="d-inline">
+                          <a href="edit-diskon/<?= $d['discount_id']?>" class="btn btn-success">Edit</a>
+                          <form action="hapus-diskon/<?= $d['discount_id']?>" method="post" class="d-inline">
                             <?php csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger">Hapus</button>

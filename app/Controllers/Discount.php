@@ -55,7 +55,7 @@ class Discount extends BaseController
     public function edit($id)
     {
         if ($id != null) {
-            $query = $this->db->table('discount')->getWhere(['id' => $id]);
+            $query = $this->db->table('discount')->getWhere(['discount_id' => $id]);
             
             if ($query->resultID->num_rows > 0) {
                 $data = [
@@ -87,7 +87,7 @@ class Discount extends BaseController
             'modified_at' => Time::now('Asia/Jakarta', 'en_ID')
         ];
 
-        $this->db->table('discount')->where(['id' => $id])->update($params);
+        $this->db->table('discount')->where(['discount_id' => $id])->update($params);
         return redirect()->to(site_url('diskon'))->with('success', 'Selamat data berhasil diubah!');
     }
 

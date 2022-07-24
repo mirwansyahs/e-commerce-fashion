@@ -9,7 +9,7 @@ class Discount extends Migration
     public function up()
     {
         $this->forge->addField([
-            'id' => [
+            'discount_id' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,

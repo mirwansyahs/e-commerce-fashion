@@ -18,7 +18,7 @@
             <div class="row mt-sm-4">
               <div class="col-12 col-md-12 col-lg-7">
                 <div class="card">
-                  <form method="post" action="<?= site_url('updatediscount/' . $discount->id)?>" class="needs-validation" novalidate="">
+                  <form method="post" action="<?= site_url('updatediscount/' . $discount->discount_id)?>" class="needs-validation" novalidate="">
                     <?php csrf_field(); ?>
                     <div class="card-header">
                       <h4><?= $title; ?></h4>
@@ -27,10 +27,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-lg-12">
-                                <label>Nama Kategori</label>
+                                <label>Nama Diskon</label>
                                 <input type="text" class="form-control" name="name" value="<?= $discount->discount_name?>" required>
                                 <div class="invalid-feedback">
-                                    Nama kategori tidak boleh kosong
+                                    Nama Diskon tidak boleh kosong
                                 </div>         
                             </div>
                         </div>

@@ -18,7 +18,7 @@
             <div class="row mt-sm-4">
               <div class="col-12 col-md-12 col-lg-7">
                 <div class="card">
-                  <form method="post" action="<?= site_url('updatecategory/' . $category->id)?>" class="needs-validation" novalidate="">
+                  <form method="post" action="<?= site_url('updatecategory/' . $category->category_id)?>" class="needs-validation" novalidate="">
                     <?php csrf_field(); ?>
                     <div class="card-header">
                       <h4><?= $title; ?></h4>

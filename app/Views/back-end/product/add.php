@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="form-group col-lg-12">
                                 <label>Foto</label>
-                                <input type="file" class="form-control" name="name" required>
+                                <input type="file" class="form-control" name="image" required>
                                 <div class="invalid-feedback">
                                     Foto tidak boleh kosong
                                 </div>         
@@ -53,10 +53,10 @@
                         <div class="row">
                             <div class="form-group col-lg-12">
                                 <label>Kategori</label>
-                                <select name="active" class="form-control select2" required>
+                                <select name="category" class="form-control select2" required>
                                     <option value="">-- Pilih --</option>
                                     <?php foreach ($category as $c) { ?>
-                                    <option value="<?= $c['id']?>"><?= $c['category_name']?></option>
+                                    <option value="<?= $c['category_id']?>"><?= $c['category_name']?></option>
                                     <?php } ?>
                                 </select>
                                 <div class="invalid-feedback">
@@ -67,7 +67,7 @@
                         <div class="row">
                             <div class="form-group col-lg-12">
                                 <label>Stok</label>
-                                <input type="number" class="form-control" name="percent" required>
+                                <input type="number" class="form-control" name="stock" required>
                                 <div class="invalid-feedback">
                                     Stok tidak boleh kosong
                                 </div>         
@@ -76,11 +76,17 @@
                         <div class="row">
                             <div class="form-group col-lg-12">
                                 <label>Diskon</label>
-                                <select name="discount" class="form-control select2" required>
+                                <select name="discount" id="discount" class="form-control select2" required>
                                     <option value="">-- Pilih --</option>
-                                    <?php foreach ($discount as $d) { ?>
-                                    <option value="<?= $d['id']?>"><?= $d['discount_name']?>(<?= $d['discount_percent']?>%)</option>
-                                    <?php } ?>
+                                    <?php
+                                        foreach ($discount as $d) { 
+                                            if ($d['active'] == 'active') {
+                                    ?>
+                                    <option value="<?= $d['discount_id']?>" data-discount="<?= $d['discount_percent']?>"><?= $d['discount_name']?></option>
+                                    <?php 
+                                            } 
+                                        } 
+                                    ?>
                                 </select>
                                 <div class="invalid-feedback">
                                     Status diskon tidak boleh kosong
@@ -89,8 +95,17 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-12">
+                                <label>Besaran Discount</label>
+                                <input type="number" class="form-control" name="percent" readonly required>
+                                <div class="invalid-feedback">
+                                    Besaran tidak boleh kosong
+                                </div>         
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-12">
                                 <label>Harga</label>
-                                <input type="number" class="form-control" name="percent" placeholder="Contoh: 100000" required>
+                                <input type="number" class="form-control" name="price" placeholder="Contoh: 100000" required>
                                 <div class="invalid-feedback">
                                     Harga tidak boleh kosong
                                 </div>         
@@ -110,4 +125,16 @@
         </section>
     </div>
   
+<?= $this->endSection() ?>
+
+<?= $this->section('javascript') ?>
+<script>
+$('#discount').on('change', function(){
+  // ambil data dari elemen option yang dipilih
+  const discount = $('#discount option:selected').data('discount');
+
+  // tampilkan
+  $('[name=percent]').val(discount);
+});
+</script>
 <?= $this->endSection() ?>

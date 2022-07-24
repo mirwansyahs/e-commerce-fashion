@@ -67,7 +67,6 @@
                         <td><?= $p['original_price']; ?></td>
                         <td><?= $p['price']; ?></td>
                         <td>
-                          <a href="detail-produk/<?= $p['id']?>" class="btn btn-info mb-2">Detail</a>
                           <a href="edit-produk/<?= $p['id']?>" class="btn btn-success mb-2">Edit</a>
                           <form action="hapus-produk/<?= $p['id']?>" method="post" class="d-inline">
                             <?php csrf_field(); ?>

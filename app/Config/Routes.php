@@ -68,11 +68,13 @@ $routes->get('/produk', 'Product::index');
 $routes->get('/tambah-produk', 'Product::add');
 $routes->post('/saveproduct', 'Product::save');
 $routes->get('/edit-produk/(:num)', 'Product::edit/$1');
-$routes->get('/detail-produk/(:num)', 'Product::detail/$1');
 $routes->put('/updateproduct/(:any)', 'Product::update/$1');
 $routes->delete('/hapus-produk/(:segment)', 'Product::delete/$1');
 
 $routes->get('/pelanggan', 'Costumer::index');
+
+$routes->get('/chat', 'Chat::index');
+$routes->get('/list', 'Chat::list');
 
 $routes->get('/profil', 'Profile::index');
 $routes->post('/save', 'Profile::save');

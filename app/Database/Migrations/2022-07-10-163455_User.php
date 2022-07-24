@@ -43,6 +43,11 @@ class User extends Migration
                 'type'       => 'ENUM',
                 'constraint' => ['admin', 'user'],
             ],
+            'status' => [
+                'type'       => 'ENUM',
+                'constraint' => ['offline', 'online'],
+                'default'    => 'offline',
+            ],
             'created_at' => [
                 'type' => 'TIMESTAMP',
                 'null' => true,

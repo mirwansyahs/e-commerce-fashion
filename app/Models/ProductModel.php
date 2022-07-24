@@ -13,8 +13,8 @@ class ProductModel extends Model
     function getAll()
     {
         $builder = $this->db->table('product');
-        $builder->join('product_category', 'product_category.id = product.category_id');
-        $builder->join('discount', 'discount.id = product.discount_id');
+        $builder->join('product_category', 'product_category.category_id = product.category_id');
+        $builder->join('discount', 'discount.discount_id = product.discount_id');
         $query = $builder->get();
         return $query->getResultArray();
     }

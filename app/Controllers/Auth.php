@@ -38,6 +38,12 @@ class Auth extends BaseController
                         'id' => $user->id,
                     ];
                     session()->set($params);
+                    
+                    $params = [
+                        'status'      => 'online'
+                    ];
+                    $id = session('id');
+                    $this->profile->update($id, $params);
                     return redirect()->to(site_url('dashboard'));
                 } else {
                     return redirect()->back()->with('error', 'Password tidak sesuai!');
@@ -259,6 +265,11 @@ class Auth extends BaseController
     
     public function logout()
     {
+        $params = [
+            'status'      => 'offline'
+        ];
+        $id = session('id');
+        $this->profile->update($id, $params);
         session()->remove('id');
         return redirect()->to(site_url('masuk'));
     }

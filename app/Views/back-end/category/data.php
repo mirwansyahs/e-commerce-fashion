@@ -55,8 +55,8 @@
                         <td><?= $c['category_name']; ?></td>
                         <td><?= word_limiter($c['category_desc'], 10); ?></td>
                         <td>
-                          <a href="edit-kategori/<?= $c['id']?>" class="btn btn-success">Edit</a>
-                          <form action="hapus-kategori/<?= $c['id']?>" method="post" class="d-inline">
+                          <a href="edit-kategori/<?= $c['category_id']?>" class="btn btn-success">Edit</a>
+                          <form action="hapus-kategori/<?= $c['category_id']?>" method="post" class="d-inline">
                             <?php csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger">Hapus</button>

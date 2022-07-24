@@ -8,5 +8,5 @@ class ProfileModel extends Model
 {
     protected $table            = 'user';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['username', 'password', 'image', 'first_name', 'last_name', 'telephone', 'level', 'created_at', 'modified_at'];
+    protected $allowedFields    = ['username', 'password', 'image', 'first_name', 'last_name', 'telephone', 'level', 'status', 'created_at', 'modified_at'];
 }

@@ -48,7 +48,7 @@ class Category extends BaseController
     public function edit($id)
     {
         if ($id != null) {
-            $query = $this->db->table('product_category')->getWhere(['id' => $id]);
+            $query = $this->db->table('product_category')->getWhere(['category_id' => $id]);
             
             if ($query->resultID->num_rows > 0) {
                 $data = [
@@ -76,7 +76,7 @@ class Category extends BaseController
             'modified_at' => Time::now('Asia/Jakarta', 'en_ID')
         ];
 
-        $this->db->table('product_category')->where(['id' => $id])->update($param);
+        $this->db->table('product_category')->where(['category_id' => $id])->update($param);
         return redirect()->to(site_url('kategori'))->with('success', 'Selamat data berhasil diubah!');
     }
 
