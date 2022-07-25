@@ -25,4 +25,15 @@ class ChatModel extends Model
         $query = $builder->get();
         return $query->getResultArray();
     }
+
+    function getList()
+    {
+        $builder = $this->db->table('message');
+        // $builder->select('*');
+        $builder->join('user as u1', 'u1.id = message.sender_id');
+        // $builder->join('user as u2', 'u2.id = message.recipient_id');
+        $builder->orderBy('time', 'DESC');
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
 }

@@ -22,7 +22,7 @@
                   </div>
                   <div class="card-body">
                     <ul class="list-unstyled list-unstyled-border">
-                    <?php foreach ($chat as $c) { ?>
+                    <?php foreach ($chatList as $c) { ?>
                       <?php if ($c['sender_id'] != session('id')) { ?>
                       <li class="media">
                         <img alt="image" class="mr-3 rounded-circle" width="50" src="<?= site_url('/img/avatar/'.$c['image'])?>" onclick="list('<?= $c['sender_id'] ?>')">
@@ -76,7 +76,7 @@ function list(id)
     success: function(response) {
       if(response.data){
         $('#viewMessage').html(response.data).show();
-        $('#viewEmpty').html(response.data).hide();
+        $('#viewEmpty').hide();
       }
     },
       error: function(xhr, thrownError) {

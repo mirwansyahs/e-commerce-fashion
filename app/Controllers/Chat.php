@@ -19,6 +19,7 @@ class Chat extends BaseController
         $data = [
             'title' => 'Chat',
             'chat'  => $this->chat->getAll(),
+            'chatList'  => $this->chat->getList(),
         ];
 
         return view('back-end/chat/data', $data);
