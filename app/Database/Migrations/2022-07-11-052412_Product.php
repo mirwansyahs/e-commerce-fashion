@@ -32,6 +32,10 @@ class Product extends Migration
                 'constraint'     => 11,
                 'unsigned'       => true,
             ],
+            'size' => [
+                'type'       => 'ENUM',
+                'constraint' => ['M', 'S', 'L', 'XL'],
+            ],
             'quantity' => [
                 'type'           => 'INT',
                 'constraint'     => 11,

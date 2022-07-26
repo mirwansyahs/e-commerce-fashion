@@ -8,7 +8,7 @@ class ProductModel extends Model
 {
     protected $table            = 'product';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['name', 'image', 'desc', 'category_id', 'quantity', 'original_price', 'price', 'discount_id', 'created_at', 'modified_at', 'deleted_at'];
+    protected $allowedFields    = ['name', 'image', 'desc', 'category_id', 'size', 'quantity', 'original_price', 'price', 'discount_id', 'created_at', 'modified_at', 'deleted_at'];
 
     function getAll()
     {

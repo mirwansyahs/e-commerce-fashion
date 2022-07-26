@@ -23,18 +23,20 @@
   <link rel="stylesheet" href="<?= base_url('back-end/dist/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('back-end/dist/assets/modules/prism/prism.css'); ?>">
 
+  <?= $this->renderSection('css') ?>
+
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url('back-end/dist/assets/css/style.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('back-end/dist/assets/css/components.css'); ?>">
 <!-- Start GA -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'UA-94034622-3');
-</script> -->
+</script>
 <!-- /END GA -->
 </head>
 

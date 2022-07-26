@@ -1,5 +1,9 @@
 <?= $this->extend('layout/back-end/main') ?>
 
+<?= $this->section('css') ?>
+<link rel="stylesheet" href="<?= base_url('back-end/dist/assets/modules/summernote/summernote-bs4.css')?>">
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 
 <!-- Main Content -->
@@ -44,7 +48,7 @@
                         <div class="row">
                             <div class="form-group col-lg-12">
                                 <label>Deskripsi</label>
-                                <textarea class="form-control" name="desc" required></textarea>
+                                <textarea class="form-control summernote" name="desc" required></textarea>
                                 <div class="invalid-feedback">
                                     Deskripsi tidak boleh kosong
                                 </div>
@@ -128,6 +132,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('javascript') ?>
+<script src="<?= base_url('back-end/dist/assets/modules/summernote/summernote-bs4.js')?>"></script>
 <script>
 $('#discount').on('change', function(){
   // ambil data dari elemen option yang dipilih
