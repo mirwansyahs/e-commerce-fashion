@@ -29,10 +29,13 @@ class Chat extends BaseController
     {
         if ($this->request->isAJAX()) {
             $sender_id = $this->request->getVar('sender_id');
-            $recipient_id = $this->request->getVar('recipient_id');
 
             $chat = $this->chat->find($sender_id);
             $user = $this->user->find($sender_id);
+            
+            $user_admin = $this->user->find(session('id'));
+            $chat_admin = $this->chat->where('sender_id', session('id'))->where('recipient_id', $sender_id)->first();
+
             $data = [
                 'sender_id' => $sender_id,
                 'recipient_id' => $chat['recipient_id'],
@@ -42,6 +45,9 @@ class Chat extends BaseController
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],
                 'status' => $user['status'],
+                'message_admin' => $chat_admin['message'],
+                'time_admin' => $chat_admin['time'],
+                'image_admin' => $user_admin['image'],
             ];
 
             $msg = [

@@ -20,7 +20,7 @@
                   <div class="card-header">
                     <h4>Daftar Chat</h4>
                   </div>
-                  <div class="card-body">
+                  <div class="card-body" style="overflow-y: scroll; height: 350px;">
                     <ul class="list-unstyled list-unstyled-border">
                     <?php foreach ($chatList as $c) { ?>
                       <?php if ($c['sender_id'] != session('id')) { ?>
@@ -53,7 +53,7 @@
                 <div class="card chat-box">
                   <div class="card-header">
                   </div>
-                  <div class="card-body chat-content">
+                  <div class="card-body chat-content" style="height: 350px;">
                     <center><p class="mt-5">Silahkan klik list chat yang sudah ada!</p></center>
                   </div>
                 </div>

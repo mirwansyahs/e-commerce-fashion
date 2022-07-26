@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Jul 2022 pada 01.31
+-- Waktu pembuatan: 26 Jul 2022 pada 01.27
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -85,7 +85,8 @@ INSERT INTO `message` (`id`, `sender_id`, `recipient_id`, `message`, `is_read`, 
 (1, 2, 1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, earum placeat possimus animi ad quo asperiores aliquid vitae debitis beatae. Explicabo eum molestias impedit porro quos sint illum delectus. Cupiditate!', 0, '2022-07-20 04:30:24'),
 (2, 1, 2, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse omnis assumenda quibusdam sed, quasi explicabo sint porro! Consequatur numquam porro quibusdam excepturi commodi rerum aliquid molestiae, quo quis? Quisquam laborum porro consequatur corporis expedita fuga magni voluptatum iste quae minima!', 0, '2022-07-20 04:31:50'),
 (3, 3, 1, 'Halo', 0, '2022-07-21 10:52:33'),
-(4, 1, 3, 'iya', 0, '2022-07-22 04:32:44');
+(4, 1, 3, 'iya', 0, '2022-07-22 04:32:44'),
+(6, 2, 1, 'Punten Brow', 0, '2022-07-26 01:26:35');
 
 -- --------------------------------------------------------
 
@@ -284,8 +285,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `image`, `first_name`, `last_name`, `telephone`, `level`, `status`, `created_at`, `modified_at`) VALUES
 (1, 'ali', '$2y$10$U7tywMON7QRz0z3IhoURweqjjtSf.nEAryxFqRf5uQGEBiaTcLkXa', 'avatar-1.png', 'Ali', 'Abdurohman', '085155126055', 'admin', 'online', '2022-07-16 21:17:13', '2022-07-16 21:17:13'),
-(2, 'user', '$2y$10$slfY443MHVJdzhrFTln5p.KOLiGMabiqJaYK1mKo5Pszk4xkGM0Fm', 'avatar-1.png', 'User', '', '081233434392', 'user', 'offline', '2022-07-16 21:17:13', '2022-07-16 21:17:13'),
-(3, 'Percobaan', 'percobaan', 'avatar-1.png', 'percobaan', '', '43434', 'user', 'offline', '2022-07-21 10:50:47', NULL);
+(2, 'user', '$2y$10$slfY443MHVJdzhrFTln5p.KOLiGMabiqJaYK1mKo5Pszk4xkGM0Fm', 'avatar-2.png', 'User', '', '081233434392', 'user', 'offline', '2022-07-16 21:17:13', '2022-07-16 21:17:13'),
+(3, 'Percobaan', 'percobaan', 'avatar-3.png', 'percobaan', '', '43434', 'user', 'offline', '2022-07-21 10:50:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -452,7 +453,7 @@ ALTER TABLE `discount`
 -- AUTO_INCREMENT untuk tabel `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
