@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ChatModel;
 use App\Models\ProfileModel;
+use CodeIgniter\I18n\Time;
 
 class Chat extends BaseController
 {
@@ -56,5 +57,21 @@ class Chat extends BaseController
 
             echo json_encode($msg);
         }
+    }
+
+    public function send()
+    {
+        $sender_id = $this->request->getVar('sender_id');
+        $message = $this->request->getVar('message');
+
+        $params = [
+            'sender_id'     => session('id'),
+            'recipient_id'  => $sender_id,
+            'message'       => $message,
+            'time'          => Time::now('Asia/Jakarta', 'en_ID'),
+        ];
+
+        $this->chat->insert($params);
+        return redirect()->to(site_url('chat'));
     }
 }

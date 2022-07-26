@@ -75,6 +75,7 @@ $routes->get('/pelanggan', 'Costumer::index');
 
 $routes->get('/chat', 'Chat::index');
 $routes->get('/list', 'Chat::list');
+$routes->post('/send', 'Chat::send');
 
 $routes->get('/profil', 'Profile::index');
 $routes->post('/save', 'Profile::save');

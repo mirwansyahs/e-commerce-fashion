@@ -4,16 +4,12 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+
 class ChatModel extends Model
 {
     protected $table            = 'message';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['sender_id', 'recipient_id', 'message', 'is_read'];
-
-    // Dates
-    protected $useTimestamps = true;
-    protected $dateFormat    = 'timestamp';
-    protected $createdField  = 'time';
+    protected $allowedFields    = ['sender_id', 'recipient_id', 'message', 'is_read', 'time'];
 
     function getAll()
     {
