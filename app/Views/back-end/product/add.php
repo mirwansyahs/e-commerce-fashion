@@ -70,8 +70,165 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-12">
+                                <label>Brand</label>
+                                <select name="brand" class="form-control select2" required>
+                                    <option value="">-- Pilih --</option>
+                                    <?php foreach ($brand as $b) { ?>
+                                    <option value="<?= $b['id']?>"><?= $b['name']?></option>
+                                    <?php } ?>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Brand tidak boleh kosong
+                                </div>         
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <div class="form-group">
+                                    <label class="form-label">Size</label>
+                                    <div class="selectgroup w-100">
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="M" class="selectgroup-input" checked="">
+                                        <span class="selectgroup-button">M</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="S" class="selectgroup-input">
+                                        <span class="selectgroup-button">S</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="L" class="selectgroup-input">
+                                        <span class="selectgroup-button">L</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="L" class="selectgroup-input">
+                                        <span class="selectgroup-button">XL</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="L" class="selectgroup-input">
+                                        <span class="selectgroup-button">XXL</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="L" class="selectgroup-input">
+                                        <span class="selectgroup-button">XXXL</span>
+                                        </label>
+                                    </div>
+                                    <div class="selectgroup w-100">
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="25" class="selectgroup-input">
+                                        <span class="selectgroup-button">25</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="26" class="selectgroup-input">
+                                        <span class="selectgroup-button">26</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="27" class="selectgroup-input">
+                                        <span class="selectgroup-button">27</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="28" class="selectgroup-input">
+                                        <span class="selectgroup-button">28</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="29" class="selectgroup-input">
+                                        <span class="selectgroup-button">29</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="30" class="selectgroup-input">
+                                        <span class="selectgroup-button">30</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="31" class="selectgroup-input">
+                                        <span class="selectgroup-button">31</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="32" class="selectgroup-input">
+                                        <span class="selectgroup-button">32</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="33" class="selectgroup-input">
+                                        <span class="selectgroup-button">33</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="34" class="selectgroup-input">
+                                        <span class="selectgroup-button">34</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="size" value="35" class="selectgroup-input">
+                                        <span class="selectgroup-button">35</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <div class="form-group">
+                                    <label class="form-label">Warna</label>
+                                    <div class="selectgroup w-100">
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="hitam" class="selectgroup-input" checked="">
+                                        <span class="selectgroup-button">Hitam</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="merah" class="selectgroup-input">
+                                        <span class="selectgroup-button">Merah</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="biru" class="selectgroup-input">
+                                        <span class="selectgroup-button">Biru</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="hijau" class="selectgroup-input">
+                                        <span class="selectgroup-button">Hijau</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="kuning" class="selectgroup-input">
+                                        <span class="selectgroup-button">Kuning</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="cream" class="selectgroup-input">
+                                        <span class="selectgroup-button">Cream</span>
+                                        </label>
+                                    </div>
+                                    <div class="selectgroup w-100">
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="abu-abu" class="selectgroup-input">
+                                        <span class="selectgroup-button">Abu-abu</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="pink" class="selectgroup-input">
+                                        <span class="selectgroup-button">Pink</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="ungu" class="selectgroup-input">
+                                        <span class="selectgroup-button">Ungu</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="coklat" class="selectgroup-input">
+                                        <span class="selectgroup-button">Coklat</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                        <input type="radio" name="color" value="oren" class="selectgroup-input">
+                                        <span class="selectgroup-button">Oren</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <label>Bahan</label>
+                                <input type="text" class="form-control" name="material" >
+                                <div class="invalid-feedback">
+                                    Bahan tidak boleh kosong
+                                </div>         
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-12">
                                 <label>Stok</label>
-                                <input type="number" class="form-control" name="stock" required>
+                                <input type="number" class="form-control" name="stock"  >
                                 <div class="invalid-feedback">
                                     Stok tidak boleh kosong
                                 </div>         

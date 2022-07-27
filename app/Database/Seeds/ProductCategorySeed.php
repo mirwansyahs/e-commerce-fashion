@@ -12,11 +12,13 @@ class ProductCategorySeed extends Seeder
         $data = [
             [
                 'category_name' => 'Baju',
+                'category_slug'    => 'baju',
                 'category_desc'    => 'Baju-baju bagus',
                 'created_at'    => Time::now(),
             ],
             [
                 'category_name' => 'Celana',
+                'category_slug' => 'celana',
                 'category_desc'    => 'Celana-celana bagus',
                 'created_at'    => Time::now(),
             ]

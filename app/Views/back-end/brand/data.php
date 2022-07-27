@@ -31,7 +31,7 @@
             <?php } ?>
             <div class="card">
               <div class="card-header">
-                <a href="tambah-kategori" class="btn btn-primary">
+                <a href="tambah-brand" class="btn btn-primary">
                   <i class="fas fa-plus"></i> Tambah
                 </a>
               </div>
@@ -41,24 +41,22 @@
                     <thead>
                       <tr>
                         <th>No</th>
-                        <th>Nama Kategori</th>
-                        <th>Slug Kategori</th>
-                        <th>Deskripsi</th>
+                        <th>Nama Brand</th>
+                        <th>Slug Brand</th>
                         <th width="18%">Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php $no = 1;
-                        foreach ($category as $c) {
+                        foreach ($brand as $b) {
                       ?>
                       <tr>
                         <td><?= $no++; ?></td>
-                        <td><?= $c['category_name']; ?></td>
-                        <td><?= $c['category_slug']; ?></td>
-                        <td><?= word_limiter($c['category_desc'], 10); ?></td>
+                        <td><?= $b['name']; ?></td>
+                        <td><?= $b['slug']; ?></td>
                         <td>
-                          <a href="edit-kategori/<?= $c['category_id']?>" class="btn btn-success">Edit</a>
-                          <form action="hapus-kategori/<?= $c['category_id']?>" method="post" class="d-inline">
+                          <a href="edit-brand/<?= $b['id']?>" class="btn btn-success">Edit</a>
+                          <form action="hapus-brand/<?= $b['id']?>" method="post" class="d-inline">
                             <?php csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger">Hapus</button>

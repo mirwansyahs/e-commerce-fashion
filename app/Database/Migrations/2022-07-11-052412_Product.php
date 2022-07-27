@@ -32,9 +32,22 @@ class Product extends Migration
                 'constraint'     => 11,
                 'unsigned'       => true,
             ],
+            'brand_id' => [
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+            ],
             'size' => [
-                'type'       => 'ENUM',
-                'constraint' => ['M', 'S', 'L', 'XL'],
+                'type'           => 'VARCHAR',
+                'constraint'     => 11,
+            ],
+            'color' => [
+                'type'           => 'VARCHAR',
+                'constraint'     => 255,
+            ],
+            'material' => [
+                'type'           => 'VARCHAR',
+                'constraint'     => 100,
             ],
             'quantity' => [
                 'type'           => 'INT',
@@ -69,7 +82,7 @@ class Product extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('category_id', 'product_category', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('inventory_id', 'product_inventory', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('brand_id', 'product_brand', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('discount_id', 'discount', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('product');
     }

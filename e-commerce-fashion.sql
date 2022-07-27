@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Jul 2022 pada 01.27
+-- Waktu pembuatan: 27 Jul 2022 pada 14.48
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -86,7 +86,34 @@ INSERT INTO `message` (`id`, `sender_id`, `recipient_id`, `message`, `is_read`, 
 (2, 1, 2, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse omnis assumenda quibusdam sed, quasi explicabo sint porro! Consequatur numquam porro quibusdam excepturi commodi rerum aliquid molestiae, quo quis? Quisquam laborum porro consequatur corporis expedita fuga magni voluptatum iste quae minima!', 0, '2022-07-20 04:31:50'),
 (3, 3, 1, 'Halo', 0, '2022-07-21 10:52:33'),
 (4, 1, 3, 'iya', 0, '2022-07-22 04:32:44'),
-(6, 2, 1, 'Punten Brow', 0, '2022-07-26 01:26:35');
+(6, 2, 1, 'Punten Brow', 0, '2022-07-26 01:26:35'),
+(10, 1, 3, 'Cek', 0, '2022-07-26 07:01:49'),
+(11, 1, 2, 'Apakah ada yang saya bisa bantu?', 0, '2022-07-26 07:03:15'),
+(12, 1, 2, 'coba', 0, '2022-07-26 07:40:43');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `message_room`
+--
+
+CREATE TABLE `message_room` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL,
+  `room` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `modified_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `message_room`
+--
+
+INSERT INTO `message_room` (`id`, `user_id`, `message_id`, `room`, `created_at`, `modified_at`) VALUES
+(1, 2, 1, 1, '2022-07-27 14:00:25', '2022-07-27 14:00:25'),
+(2, 1, 2, 1, '2022-07-27 14:01:37', '2022-07-27 14:01:37'),
+(3, 2, 6, 1, '2022-07-27 14:03:25', '2022-07-27 14:03:25');
 
 -- --------------------------------------------------------
 
@@ -122,7 +149,8 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 (77, '2022-07-11-060858', 'App\\Database\\Migrations\\OrderDetails', 'default', 'App', 1658049405, 1),
 (78, '2022-07-11-061239', 'App\\Database\\Migrations\\OrderItems', 'default', 'App', 1658049406, 1),
 (79, '2022-07-12-044339', 'App\\Database\\Migrations\\Store', 'default', 'App', 1658049407, 1),
-(80, '2022-07-20-112852', 'App\\Database\\Migrations\\Message', 'default', 'App', 1658316940, 2);
+(80, '2022-07-20-112852', 'App\\Database\\Migrations\\Message', 'default', 'App', 1658316940, 2),
+(81, '2022-07-11-052050', 'App\\Database\\Migrations\\ProductBrand', 'default', 'App', 1658892545, 3);
 
 -- --------------------------------------------------------
 
@@ -154,6 +182,17 @@ CREATE TABLE `order_items` (
   `modified_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Trigger `order_items`
+--
+DELIMITER $$
+CREATE TRIGGER `InsertOrderItem` BEFORE INSERT ON `order_items` FOR EACH ROW BEGIN
+	UPDATE product set quantity = quantity - NEW.quantity 
+    WHERE id = NEW.product_id;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -181,6 +220,10 @@ CREATE TABLE `product` (
   `image` varchar(255) NOT NULL,
   `desc` text DEFAULT NULL,
   `category_id` int(11) UNSIGNED NOT NULL,
+  `brand_id` int(11) NOT NULL,
+  `size` varchar(11) NOT NULL,
+  `color` varchar(255) NOT NULL,
+  `material` varchar(100) NOT NULL,
   `quantity` int(11) NOT NULL,
   `discount_id` int(11) UNSIGNED DEFAULT NULL,
   `original_price` int(11) NOT NULL,
@@ -194,9 +237,33 @@ CREATE TABLE `product` (
 -- Dumping data untuk tabel `product`
 --
 
-INSERT INTO `product` (`id`, `name`, `image`, `desc`, `category_id`, `quantity`, `discount_id`, `original_price`, `price`, `created_at`, `modified_at`, `deleted_at`) VALUES
-(7, 'Kaos Polos Hitam', 'kaos.jpg', 'Ready kaos polos super premium\r\nDETAIL KAOS :\r\nKaos polos basic\r\nmatt spandex asli premium 30s\r\nBahan adem,lembut ,nyerap keringat,di jamin nyaman di pakai\r\nJahitan rantai rapi standar distro clothing\r\n\r\nNB:\r\nBUKAN SPANDEX PE YG HARGA JUAL 18 RIBUAN\r\nTEKSTUR BAHAN PANAS DAN CEPAT BERBULU\r\n\r\nSIZE CHART :\r\nM=LD 96cm x PJG 66cm\r\nL=LD 98cm x PJG 68cm\r\nXL=LD 100cm x  PJG 70cm\r\nToleransi 1-2 cm, karna produksi nya massal\r\nBerat produk 180gr\r\n1kg muat 7 pcs\r\n\r\nKualitas original mantap\r\nreal pict & good quality\r\n\r\n\r\n#kaospolos #T-shirtso-neck #kaosdistro #kaospolosmurah #kaospolosspandex\r\n\r\nTerima kasih!', 1, 100, 2, 75000, '37500', '2022-07-20 01:59:50', NULL, NULL),
-(10, 'Celana panjang jeans pria hitam premium', 'Celana panjang jeans pria hitam premium.jpg', '==========================================\r\n● Bahan : Badjatex Premium Stretch\r\n● Model : Slim Fit\r\n● Bahan Strerch /  elastis nyaman dipakai\r\n==========================================\r\n\r\nPanduan Size Chart Lokal :\r\nUkuran  28 : Lingkaran pinggang 72 cm x Panjang Celana 98 cm\r\nUkuran  30 : Lingkaran pinggang 78 cm x Panjang Celana 99 cm\r\nUkuran  32 : Lingkaran pinggang 83 cm x Panjang Celana 100 cm\r\nUkuran  34 : Lingkaran pinggang 88 cm x Panjang Celana 101 cm\r\n\r\n*Toleransi Ukuran 1-2 Centimeters\r\n\r\nLengkapi kesehariankalian dengan CELVIN DENIM STRETCH. Bahan kualitas premium dan diproduksi dari tangan-tangan kreatif INDONESIA bakal bikin hari hari kalian semakin sempurna.\r\nBahan Denim Stretch (bahan melar / ngaret) dan potongan SLIMFIT akan bikin kalian nyaman, bebas bergerak, dan terlihat semakin kece.\r\n\r\nHappy Shopping Guyss :)', 2, 100, 2, 144900, '72450', '2022-07-22 08:01:58', '2022-07-22 15:59:59', NULL);
+INSERT INTO `product` (`id`, `name`, `image`, `desc`, `category_id`, `brand_id`, `size`, `color`, `material`, `quantity`, `discount_id`, `original_price`, `price`, `created_at`, `modified_at`, `deleted_at`) VALUES
+(7, 'Kaos Polos Hitam', 'kaos.jpg', '<p>Ready kaos polos super premium\r\n</p><p>DETAIL KAOS :\r\nKaos polos basic\r\nmatt spandex asli premium 30s\r\nBahan adem,lembut ,nyerap keringat,di jamin nyaman di pakai\r\nJahitan rantai rapi standar distro clothing\r\n</p><p>\r\nNB:\r\nBUKAN SPANDEX PE YG HARGA JUAL 18 RIBUAN\r\nTEKSTUR BAHAN PANAS DAN CEPAT BERBULU</p><p>\r\n\r\nSIZE CHART :\r\nM=LD 96cm x PJG 66cm\r\nL=LD 98cm x PJG 68cm\r\nXL=LD 100cm x  PJG 70cm\r\n</p><p>Toleransi 1-2 cm, karna produksi nya massal\r\nBerat produk 180gr\r\n1kg muat 7 pcs\r\n\r\nKualitas original mantap\r\nreal pict &amp; good quality\r\n\r\n\r\n#kaospolos #T-shirtso-neck #kaosdistro #kaospolosmurah #kaospolosspandex\r\n\r\nTerima kasih!</p>', 1, 0, '0', '0', '', 98, 2, 75000, '37500', '2022-07-20 01:59:50', '2022-07-26 14:24:18', NULL),
+(10, 'Celana panjang jeans pria hitam premium', 'Celana panjang jeans pria hitam premium.jpg', '<p>==========================================\r\n</p><p>● Bahan : Badjatex Premium Stretch</p><p>● Model : Slim Fit\r\n</p><p>● Bahan Strerch /  elastis nyaman dipakai\r\n==========================================\r\n</p><p>\r\nPanduan Size Chart Lokal :</p><p>\r\nUkuran  28 : Lingkaran pinggang 72 cm x Panjang Celana 98 cm\r\n</p><p>Ukuran  30 : Lingkaran pinggang 78 cm x Panjang Celana 99 cm</p><p>Ukuran  32 : Lingkaran pinggang 83 cm x Panjang Celana 100 cm\r\n</p><p>Ukuran  34 : Lingkaran pinggang 88 cm x Panjang Celana 101 cm</p><p>\r\n\r\n*Toleransi Ukuran 1-2 Centimeters\r\n\r\nLengkapi keseharian kalian dengan CELVIN DENIM STRETCH. Bahan kualitas premium dan diproduksi dari tangan-tangan kreatif INDONESIA bakal bikin hari hari kalian semakin sempurna.\r\nBahan Denim Stretch (bahan melar / ngaret) dan potongan SLIMFIT akan bikin kalian nyaman, bebas bergerak, dan terlihat semakin kece.\r\n\r\nHappy Shopping Guyss :)</p>', 2, 1, '28', 'hitam', 'levis', 100, 2, 144900, '72450', '2022-07-22 08:01:58', '2022-07-27 05:17:45', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `product_brand`
+--
+
+CREATE TABLE `product_brand` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `modified_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `product_brand`
+--
+
+INSERT INTO `product_brand` (`id`, `name`, `slug`, `created_at`, `modified_at`, `deleted_at`) VALUES
+(1, 'No Brand', 'no-brand', '2022-07-26 15:41:18', NULL, NULL),
+(2, 'Erigo', 'erigo', '2022-07-26 15:41:18', NULL, NULL),
+(3, 'Aerostreet', 'aerostreet', '2022-07-27 06:57:46', '2022-07-27 06:59:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -207,6 +274,7 @@ INSERT INTO `product` (`id`, `name`, `image`, `desc`, `category_id`, `quantity`,
 CREATE TABLE `product_category` (
   `category_id` int(11) UNSIGNED NOT NULL,
   `category_name` varchar(255) NOT NULL,
+  `category_slug` varchar(225) NOT NULL,
   `category_desc` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NULL DEFAULT NULL,
@@ -217,9 +285,9 @@ CREATE TABLE `product_category` (
 -- Dumping data untuk tabel `product_category`
 --
 
-INSERT INTO `product_category` (`category_id`, `category_name`, `category_desc`, `created_at`, `modified_at`, `deleted_at`) VALUES
-(1, 'Baju', 'Baju-baju bagus', '2022-07-16 21:17:51', '2022-07-22 08:22:11', NULL),
-(2, 'Celana', 'Celana-celana bagus', '2022-07-16 21:17:51', NULL, NULL);
+INSERT INTO `product_category` (`category_id`, `category_name`, `category_slug`, `category_desc`, `created_at`, `modified_at`, `deleted_at`) VALUES
+(1, 'Baju', 'baju', 'Baju-baju bagus', '2022-07-16 21:17:51', '2022-07-27 06:39:35', NULL),
+(2, 'Celana', 'celana', 'Celana-celana bagus', '2022-07-16 21:17:51', '2022-07-27 06:39:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -359,6 +427,14 @@ ALTER TABLE `message`
   ADD KEY `message_recipient_id_foreign` (`recipient_id`);
 
 --
+-- Indeks untuk tabel `message_room`
+--
+ALTER TABLE `message_room`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `message_id` (`message_id`);
+
+--
 -- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
@@ -392,7 +468,16 @@ ALTER TABLE `payment_details`
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
   ADD KEY `product_category_id_foreign` (`category_id`),
-  ADD KEY `product_discount_id_foreign` (`discount_id`);
+  ADD KEY `product_discount_id_foreign` (`discount_id`),
+  ADD KEY `size_id` (`size`),
+  ADD KEY `color_id` (`color`),
+  ADD KEY `brand_id` (`brand_id`);
+
+--
+-- Indeks untuk tabel `product_brand`
+--
+ALTER TABLE `product_brand`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `product_category`
@@ -453,37 +538,49 @@ ALTER TABLE `discount`
 -- AUTO_INCREMENT untuk tabel `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT untuk tabel `message_room`
+--
+ALTER TABLE `message_room`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT untuk tabel `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `payment_details`
 --
 ALTER TABLE `payment_details`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT untuk tabel `product_brand`
+--
+ALTER TABLE `product_brand`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `product_category`
@@ -519,7 +616,7 @@ ALTER TABLE `user_address`
 -- AUTO_INCREMENT untuk tabel `user_payment`
 --
 ALTER TABLE `user_payment`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

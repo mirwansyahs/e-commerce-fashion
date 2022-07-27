@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ProductModel;
 use App\Models\CategoryModel;
+use App\Models\BrandModel;
 use App\Models\DiscountModel;
 use CodeIgniter\I18n\Time;
 
@@ -14,6 +15,7 @@ class Product extends BaseController
         helper('text');
         $this->product = new ProductModel();
         $this->category = new CategoryModel();
+        $this->brand = new BrandModel();
         $this->discount = new DiscountModel();
 
     }
@@ -33,6 +35,7 @@ class Product extends BaseController
         $data = [
             'title' => 'Tambah Produk',
             'category' => $this->category->findAll(),
+            'brand' => $this->brand->findAll(),
             'discount' => $this->discount->findAll(),
         ];
 
@@ -44,6 +47,10 @@ class Product extends BaseController
         $name = $this->request->getVar('name');
         $desc = $this->request->getVar('desc');
         $category = $this->request->getVar('category');
+        $brand = $this->request->getVar('brand');
+        $size = $this->request->getVar('size');
+        $color = $this->request->getVar('color');
+        $material = $this->request->getVar('material');
         $stock = $this->request->getVar('stock');
         $discount = $this->request->getVar('discount');
         $original_price = $this->request->getVar('price');
@@ -68,6 +75,10 @@ class Product extends BaseController
             'image' => $pathImage,
             'desc' => $desc,
             'category_id' => $category,
+            'brand_id' => $brand,
+            'size' => $size,
+            'color' => $color,
+            'material' => $material,
             'quantity' => $stock,
             'discount_id' => $discount,
             'original_price' => $original_price,
@@ -89,6 +100,7 @@ class Product extends BaseController
                     'title' => 'Edit Produk',
                     'product' => $query->getRow(),
                     'category' => $this->category->findAll(),
+                    'brand' => $this->brand->findAll(),
                     'discount' => $this->discount->findAll(),
                 ];
         
@@ -106,6 +118,10 @@ class Product extends BaseController
         $name = $this->request->getVar('name');
         $desc = $this->request->getVar('desc');
         $category = $this->request->getVar('category');
+        $brand = $this->request->getVar('brand');
+        $size = $this->request->getVar('size');
+        $color = $this->request->getVar('color');
+        $material = $this->request->getVar('material');
         $stock = $this->request->getVar('stock');
         $discount = $this->request->getVar('discount');
         $original_price = $this->request->getVar('price');
@@ -141,6 +157,10 @@ class Product extends BaseController
             'image' => $pathImage,
             'desc' => $desc,
             'category_id' => $category,
+            'brand_id' => $brand,
+            'size' => $size,
+            'color' => $color,
+            'material' => $material,
             'quantity' => $stock,
             'discount_id' => $discount,
             'original_price' => $original_price,
