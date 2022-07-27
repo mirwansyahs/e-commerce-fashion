@@ -1,15 +1,16 @@
 <div class="col-12 col-sm-6 col-lg-12" id="viewMessage">
     <div class="card chat-box">
         <div class="card-header">
-        <?php if ($status == 'online') { ?>
-            <h4><i class="fas fa-circle text-success mr-2" data-toggle="tooltip"></i> <?= $first_name; ?> <?= $last_name; ?></h4>
-        <?php } else if ($status == 'offline') { ?>
-            <h4><i class="fas fa-circle text-muted mr-2" data-toggle="tooltip"></i> <?= $first_name; ?> <?= $last_name; ?></h4>
+        <?php if ($user['status'] == 'online') { ?>
+            <h4><i class="fas fa-circle text-success mr-2" data-toggle="tooltip"></i> <?= $user['first_name']; ?> <?= $user['last_name']; ?></h4>
+        <?php } else if ($user['status'] == 'offline') { ?>
+            <h4><i class="fas fa-circle text-muted mr-2" data-toggle="tooltip"></i> <?= $user['first_name']; ?> <?= $user['last_name']; ?></h4>
             <div class="text-muted text-small font-600-bold"></i> Offline</div>
         <?php } ?>
         </div>
         <div class="card-body chat-content">
             <input type="hidden" name="sender_id" id="sender_id" value="<?= $sender_id; ?>">
+
             <div class="chat-item chat-left">
                 <img src="<?= site_url('/img/avatar/'.$image)?>" alt="avatar">
                 <div class="chat-details">
@@ -24,6 +25,7 @@
                     <div class="chat-time"><?= date('H:i', strtotime($time_admin)) ?></div>
                 </div>
             </div>
+            
         </div>
         <div class="card-footer chat-form">
             <form action="send" method="post">

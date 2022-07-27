@@ -37,25 +37,28 @@ class Chat extends BaseController
             $user_admin = $this->user->find(session('id'));
             $chat_admin = $this->chat->where('sender_id', session('id'))->where('recipient_id', $sender_id)->first();
 
+            // var_dump($user);
             $data = [
                 'sender_id' => $sender_id,
-                'recipient_id' => $chat['recipient_id'],
-                'message' => $chat['message'],
-                'time' => $chat['time'],
-                'image' => $user['image'],
-                'first_name' => $user['first_name'],
-                'last_name' => $user['last_name'],
-                'status' => $user['status'],
-                'message_admin' => $chat_admin['message'],
-                'time_admin' => $chat_admin['time'],
-                'image_admin' => $user_admin['image'],
+                'user'      => $user,
+                'chat'      => $this->chat->select('user.first_name, user.last_name, message.*')->join('user', 'user.id = message.sender_id')->where('message.recipient_id', session('id'))->where('message.sender_id', $sender_id)->get()->getResultArray(),
+            //     'recipient_id' => $chat['recipient_id'],
+            //     'message' => $chat['message'],
+            //     'time' => $chat['time'],
+            //     'image' => $user['image'],
+            //     'first_name' => $user['first_name'],
+            //     'last_name' => $user['last_name'],
+            //     'status' => $user['status'],
+            //     'message_admin' => $chat_admin['message'],
+            //     'time_admin' => $chat_admin['time'],
+            //     'image_admin' => $user_admin['image'],
             ];
+var_dump($data['chat']);
+            // $msg = [
+            //     'data' => view('back-end/chat/content', $data)
+            // ];
 
-            $msg = [
-                'data' => view('back-end/chat/content', $data)
-            ];
-
-            echo json_encode($msg);
+            // echo json_encode($msg);
         }
     }
 
