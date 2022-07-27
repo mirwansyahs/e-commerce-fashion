@@ -4,28 +4,24 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class ProductCategory extends Migration
+class ProductBrand extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'category_id' => [
+            'id' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'category_name' => [
+            'name' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 255,
             ],
-            'category_slug' => [
+            'slug' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 255,
-            ],
-            'category_desc' => [
-                'type'       => 'TEXT',
-                'null'       => true,
             ],
             'created_at' => [
                 'type' => 'TIMESTAMP',
@@ -41,11 +37,11 @@ class ProductCategory extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('product_category');
+        $this->forge->createTable('product_brand');
     }
 
     public function down()
     {
-        $this->forge->dropTable('product_category');
+        $this->forge->dropTable('product_brand');
     }
 }

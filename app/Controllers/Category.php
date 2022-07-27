@@ -37,6 +37,7 @@ class Category extends BaseController
 
         $params = [
             'category_name' => $name,
+            'category_slug' => strtolower(url_title($name)),
             'category_desc' => $desc,
             'created_at' => Time::now('Asia/Jakarta', 'en_ID')
         ];
@@ -73,6 +74,7 @@ class Category extends BaseController
         $param = [
             'category_name' => $name,
             'category_desc' => $desc,
+            'category_slug' => strtolower(url_title($name)),
             'modified_at' => Time::now('Asia/Jakarta', 'en_ID')
         ];
 

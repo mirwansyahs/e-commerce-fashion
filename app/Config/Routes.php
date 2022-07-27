@@ -57,6 +57,13 @@ $routes->get('/edit-kategori/(:num)', 'Category::edit/$1');
 $routes->put('/updatecategory/(:any)', 'Category::update/$1');
 $routes->delete('/hapus-kategori/(:segment)', 'Category::delete/$1');
 
+$routes->get('/brand', 'Brand::index');
+$routes->get('/tambah-brand', 'Brand::add');
+$routes->post('/savebrand', 'Brand::save');
+$routes->get('/edit-brand/(:num)', 'Brand::edit/$1');
+$routes->put('/updatebrand/(:any)', 'Brand::update/$1');
+$routes->delete('/hapus-brand/(:segment)', 'Brand::delete/$1');
+
 $routes->get('/diskon', 'Discount::index');
 $routes->get('/tambah-diskon', 'Discount::add');
 $routes->post('/savediscount', 'Discount::save');

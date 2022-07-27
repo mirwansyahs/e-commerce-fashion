@@ -18,11 +18,19 @@
                 <a class="nav-link" href="dashboard"><i class="fa fa-fire"></i> <span>Dashboard</span></a>
             </li>
             <li class="menu-header">Menu</li>
-            <li class="<?= $request->uri->getSegment(1) == 'kategori' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
-                <a class="nav-link" href="kategori"><i class="fas fa-th"></i> <span>Kategori</span></a>
-            </li>
-            <li class="<?= $request->uri->getSegment(1) == 'produk' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
-                <a class="nav-link" href="produk"><i class="fas fa-tshirt"></i> <span>Produk</span></a>
+            <li class="dropdown <?= $request->uri->getSegment(1) == 'order-brand' || $request->uri->getSegment(1) == 'kategori' || $request->uri->getSegment(1) == 'produk' ? 'active' : ''?>">
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-tshirt"></i> <span>Katalog</span></a>
+            <ul class="dropdown-menu">              
+                <li class="<?= $request->uri->getSegment(1) == 'brand' ? 'active' : ''?>">
+                    <a class="nav-link" href="brand">Brand</a>
+                </li>                
+                <li class="<?= $request->uri->getSegment(1) == 'kategori' ? 'active' : ''?>">
+                    <a class="nav-link" href="kategori">Kategori</a>
+                </li>                
+                <li class="<?= $request->uri->getSegment(1) == 'produk' ? 'active' : ''?>">
+                    <a class="nav-link" href="produk">Produk</a>
+                </li>                
+            </ul>
             </li>
             <li class="<?= $request->uri->getSegment(1) == 'diskon' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
                 <a class="nav-link" href="diskon"><i class="fas fa-percent"></i> <span>Diskon</span></a>
