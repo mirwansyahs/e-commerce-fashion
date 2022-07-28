@@ -21,64 +21,78 @@ class Chat extends BaseController
     {
         $data = [
             'title' => 'Chat',
-            // 'chat'  => $this->room->getAll(),
             'chatList'  => $this->chat->getList(),
         ];
-
-        // dd($chat_admin = $this->room->getAll());
 
         return view('back-end/chat/data', $data);
     }
 
     public function list()
     {
-        // if ($this->request->isAJAX()) {
+        if ($this->request->isAJAX()) {
+            $room_number = $this->request->getVar('room_number');
             $sender_id = $this->request->getVar('sender_id');
 
-            // $chat = $this->chat->find($sender_id);
-            // $user = $this->user->find($sender_id);
+            $chat = $this->chat->join('user', 'user.id = message.user_id')
+                    ->where('room_number', $room_number)->findAll();
             
-            // $user_admin = $this->user->find(session('id'));
-            $chat_admin = $this->room->getAll();
+            foreach ($chat as $c) {
+                $user_id =  $c['user_id'];
+            }
 
+            $user = $this->user->find($user_id);
 
-            // $data = [
-            //     'sender_id' => $sender_id,
-            //     'recipient_id' => $chat_admin['recipient_id'],
-            //     'message' => $chat_admin['message'],
-            //     'time' => $chat_admin['time'],
-            //     'image' => $chat_admin['image'],
-            //     'first_name' => $chat_admin['first_name'],
-            //     'last_name' => $chat_admin['last_name'],
-            //     'status' => $chat_admin['status'],
-            //     'message_admin' => $chat_admin['message'],
-            //     'time_admin' => $chat_admin['time'],
-            //     'image_admin' => $user_admin['image'],
-            // ];
+             $msg = [
+                'data' => view('back-end/chat/content', [
+                        'room_number' => $room_number,
+                        'sender_id' => $user_id,
+                        'user' => $user,
+                        'chat' => $chat
+                ])
+            ];
 
-            // $msg = [
-            //     'data' => view('back-end/chat/content', $chat_admin)
-            // ];
-
-            var_dump($chat_admin[0]['message']);
-            // dd($data);
-            // json_encode($msg);
-        // }
+            echo json_encode($msg);
+        }
     }
 
     public function send()
     {
-        $sender_id = $this->request->getVar('sender_id');
+        $user_id = $this->request->getVar('user_id');
+        $room_number = $this->request->getVar('room_number');
         $message = $this->request->getVar('message');
 
         $params = [
+            'room_number'   => $room_number,
+            'user_id'       => $user_id,
             'sender_id'     => session('id'),
-            'recipient_id'  => $sender_id,
+            'recipient_id'  => $user_id,
             'message'       => $message,
             'time'          => Time::now('Asia/Jakarta', 'en_ID'),
         ];
 
         $this->chat->insert($params);
+
+        $message = $this->chat->groupBy('id')->orderBy('id', 'ASC')->get()->getResultArray();
+
+        foreach ($message as $m) {
+            $message_id = $m['id'];
+        }
+        
+        $msg_params = [
+            'user_id'       => $user_id,
+            'message_id'    => $message_id,
+            'room'          => $room_number,
+        ];
+
+        $this->room->insert($msg_params);
+
+        $latest_params = [
+            'user_id'       => $user_id,
+            'message_id'    => $message_id,
+            'time_in'       => Time::now('Asia/Jakarta', 'en_ID'),
+        ];
+
+        $query = $this->db->table('message_latest')->where(['user_id' => $user_id])->update($latest_params);
         return redirect()->to(site_url('chat'));
     }
 }

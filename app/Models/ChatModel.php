@@ -9,7 +9,7 @@ class ChatModel extends Model
 {
     protected $table            = 'message';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['sender_id', 'recipient_id', 'message', 'is_read', 'time'];
+    protected $allowedFields    = ['room_number', 'user_id', 'sender_id', 'recipient_id', 'message', 'is_read', 'time'];
 
     function getAll()
     {
@@ -22,11 +22,10 @@ class ChatModel extends Model
 
     function getList()
     {
-        $builder = $this->db->table('message');
-        $builder->join('user', 'user.id = message.sender_id');
-        $builder->where('sender_id != 1');
-        $builder->groupBy('first_name');
-        $builder->orderBy('time', 'DESC');
+        $builder = $this->db->table('message_latest');
+        $builder->join('message', 'message.id = message_latest.message_id');
+        $builder->join('user', 'user.id = message.user_id');
+        $builder->orderBy('time_in', 'DESC');
         $query = $builder->get();
         return $query->getResultArray();
     }
