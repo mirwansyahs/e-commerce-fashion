@@ -28,9 +28,14 @@
                         <div class="media-body">
                           <div class="mt-0 mb-1 font-weight-bold" onclick="list('<?= $c['room_number'] ?>')"><?= $c['first_name']?> <?= $c['last_name']?></div>
                           <div class="row">
-                            <?php if ($c['is_read'] == 0) { ?>
+                            <?php if ($c['is_read'] == 0 && $c['sender_id'] != 1) { ?>
                               <p class="chat-text col-sm-8" onclick="list('<?= $c['room_number'] ?>')"><b><?= word_limiter($c['message'], 5)?></b></p>
-                            <?php } else if ($c['is_read'] == 1) { ?>
+                            <?php } else if ($c['is_read'] == 0 && $c['sender_id'] == 1) { ?>
+                              <p class="chat-text col-sm-8" onclick="list('<?= $c['room_number'] ?>')"><?= word_limiter($c['message'], 5)?></p>
+                            <?php } ?>
+                            <?php if ($c['is_read'] == 1 && $c['sender_id'] != 1) { ?>
+                              <p class="chat-text col-sm-8" onclick="list('<?= $c['room_number'] ?>')"><?= word_limiter($c['message'], 5)?></p>
+                              <?php } else if ($c['is_read'] == 1 && $c['sender_id'] == 1) { ?>
                               <p class="chat-text col-sm-8" onclick="list('<?= $c['room_number'] ?>')"><?= word_limiter($c['message'], 5)?></p>
                             <?php } ?>
                             <p class="chat-time text-secondary col-sm-4" style="font-size: 12px;"><?= date('H:i', strtotime($c['time'])) ?></p>

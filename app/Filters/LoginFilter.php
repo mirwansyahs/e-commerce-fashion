@@ -10,13 +10,17 @@ class LoginFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
+        $db = db_connect();
+        $user = $db->table('user')->getWhere([])->getRow(); 
         if (!session('id')) {
             return redirect()->to(site_url('masuk'));
-        }
+        } 
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        // Do something here
+        if (session('level') != 'admin') {
+            return redirect()->to(site_url(''));
+        }
     }
 }

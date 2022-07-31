@@ -37,6 +37,7 @@ class Auth extends BaseController
                     $params = [
                         'id' => $user->id,
                         'image' => $user->image,
+                        'level' => $user->level,
                     ];
                     session()->set($params);
                     
@@ -46,6 +47,24 @@ class Auth extends BaseController
                     $id = session('id');
                     $this->profile->update($id, $params);
                     return redirect()->to(site_url('dashboard'));
+                } else {
+                    return redirect()->back()->with('error', 'Password tidak sesuai!');
+                }
+            } else if ($level == 'user') {
+                if (password_verify($post['password'], $user->password)) {
+                    $params = [
+                        'id' => $user->id,
+                        'image' => $user->image,
+                        'level' => $user->level,
+                    ];
+                    session()->set($params);
+                    
+                    $params = [
+                        'status'      => 'online'
+                    ];
+                    $id = session('id');
+                    $this->profile->update($id, $params);
+                    return redirect()->to(site_url());
                 } else {
                     return redirect()->back()->with('error', 'Password tidak sesuai!');
                 }

@@ -84,7 +84,20 @@ class Filters extends BaseConfig
                 'profil',
                 'ubah-kata-sandi',
                 'pengaturan',
-            ]
+            ],
+            'after' => [
+                'dashboard',
+                'kategori',
+                'produk',
+                'diskon',
+                'order-masuk',
+                'order-selesai',
+                'pelanggan',
+                'chat',
+                'profil',
+                'ubah-kata-sandi',
+                'pengaturan',
+            ],
         ]
     ];
 }

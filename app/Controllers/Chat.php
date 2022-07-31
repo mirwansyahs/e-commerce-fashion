@@ -38,15 +38,23 @@ class Chat extends BaseController
             
             foreach ($chat as $c) {
                 $user_id =  $c['user_id'];
+                $recipient_id =  $c['recipient_id'];
+                $sender_id =  $c['sender_id'];
             }
 
             $user = $this->user->find($user_id);
+            $user_admin = $this->user->find(session('id'));
+
+            if ($sender_id != 1) {
+                $this->db->table('message')->where(['sender_id' => $sender_id])->update(['is_read' => 1]);
+            }
 
              $msg = [
                 'data' => view('back-end/chat/content', [
                         'room_number' => $room_number,
                         'sender_id' => $user_id,
                         'user' => $user,
+                        'user_admin' => $user_admin,
                         'chat' => $chat
                 ])
             ];
@@ -92,7 +100,7 @@ class Chat extends BaseController
             'time_in'       => Time::now('Asia/Jakarta', 'en_ID'),
         ];
 
-        $query = $this->db->table('message_latest')->where(['user_id' => $user_id])->update($latest_params);
+        $this->db->table('message_latest')->where(['user_id' => $user_id])->update($latest_params);
         return redirect()->to(site_url('chat'));
     }
 }

@@ -36,6 +36,8 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('/produk-detail/(:any)', 'Home::detail/$1');
+$routes->get('/keranjang', 'Home::cart');
 
 // Auth
 $routes->get('/masuk', 'Auth::index');
@@ -57,6 +59,20 @@ $routes->get('/edit-kategori/(:num)', 'Category::edit/$1');
 $routes->put('/updatecategory/(:any)', 'Category::update/$1');
 $routes->delete('/hapus-kategori/(:segment)', 'Category::delete/$1');
 
+$routes->get('/ukuran', 'Size::index');
+$routes->get('/tambah-ukuran', 'Size::add');
+$routes->post('/savesize', 'Size::save');
+$routes->get('/edit-ukuran/(:num)', 'Size::edit/$1');
+$routes->put('/updatesize/(:any)', 'Size::update/$1');
+$routes->delete('/hapus-ukuran/(:segment)', 'Size::delete/$1');
+
+$routes->get('/warna', 'Color::index');
+$routes->get('/tambah-warna', 'Color::add');
+$routes->post('/savecolor', 'Color::save');
+$routes->get('/edit-warna/(:num)', 'Color::edit/$1');
+$routes->put('/updatecolor/(:any)', 'Color::update/$1');
+$routes->delete('/hapus-warna/(:segment)', 'Color::delete/$1');
+
 $routes->get('/brand', 'Brand::index');
 $routes->get('/tambah-brand', 'Brand::add');
 $routes->post('/savebrand', 'Brand::save');
@@ -77,6 +93,13 @@ $routes->post('/saveproduct', 'Product::save');
 $routes->get('/edit-produk/(:num)', 'Product::edit/$1');
 $routes->put('/updateproduct/(:any)', 'Product::update/$1');
 $routes->delete('/hapus-produk/(:segment)', 'Product::delete/$1');
+
+$routes->get('/orderan-masuk', 'Order::index');
+$routes->get('/detail-orderan-masuk/(:num)', 'Order::detailOrderIn/$1');
+$routes->get('/orderan-dikirim', 'Order::orderSent');
+$routes->get('/detail-orderan-dikirim/(:num)', 'Order::detailOrderSent/$1');
+$routes->get('/orderan-selesai', 'Order::orderCompleted');
+$routes->get('/detail-orderan-selesai/(:num)', 'Order::detailOrderCompleted/$1');
 
 $routes->get('/pelanggan', 'Costumer::index');
 

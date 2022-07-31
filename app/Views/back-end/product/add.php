@@ -85,78 +85,14 @@
                         <div class="row">
                             <div class="form-group col-lg-12">
                                 <div class="form-group">
-                                    <label class="form-label">Size</label>
-                                    <div class="selectgroup w-100">
+                                    <label class="form-label">Ukuran</label>
+                                    <div class="selectgroup selectgroup-pills">
+                                        <?php foreach ($size as $s) { ?>
                                         <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="M" class="selectgroup-input" checked="">
-                                        <span class="selectgroup-button">M</span>
+                                        <input type="checkbox" name="size[]" value="<?= $s['id']?>" class="selectgroup-input">
+                                        <span class="selectgroup-button"><?= $s['size']?></span>
                                         </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="S" class="selectgroup-input">
-                                        <span class="selectgroup-button">S</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="L" class="selectgroup-input">
-                                        <span class="selectgroup-button">L</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="L" class="selectgroup-input">
-                                        <span class="selectgroup-button">XL</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="L" class="selectgroup-input">
-                                        <span class="selectgroup-button">XXL</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="L" class="selectgroup-input">
-                                        <span class="selectgroup-button">XXXL</span>
-                                        </label>
-                                    </div>
-                                    <div class="selectgroup w-100">
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="25" class="selectgroup-input">
-                                        <span class="selectgroup-button">25</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="26" class="selectgroup-input">
-                                        <span class="selectgroup-button">26</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="27" class="selectgroup-input">
-                                        <span class="selectgroup-button">27</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="28" class="selectgroup-input">
-                                        <span class="selectgroup-button">28</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="29" class="selectgroup-input">
-                                        <span class="selectgroup-button">29</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="30" class="selectgroup-input">
-                                        <span class="selectgroup-button">30</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="31" class="selectgroup-input">
-                                        <span class="selectgroup-button">31</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="32" class="selectgroup-input">
-                                        <span class="selectgroup-button">32</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="33" class="selectgroup-input">
-                                        <span class="selectgroup-button">33</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="34" class="selectgroup-input">
-                                        <span class="selectgroup-button">34</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="size" value="35" class="selectgroup-input">
-                                        <span class="selectgroup-button">35</span>
-                                        </label>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -165,53 +101,13 @@
                             <div class="form-group col-lg-12">
                                 <div class="form-group">
                                     <label class="form-label">Warna</label>
-                                    <div class="selectgroup w-100">
+                                    <div class="selectgroup selectgroup-pills">
+                                        <?php foreach ($color as $c) { ?>
                                         <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="hitam" class="selectgroup-input" checked="">
-                                        <span class="selectgroup-button">Hitam</span>
+                                        <input type="checkbox" name="color[]" value="<?= $c['id']?>" class="selectgroup-input">
+                                        <span class="selectgroup-button"><?= $c['color']?></span>
                                         </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="merah" class="selectgroup-input">
-                                        <span class="selectgroup-button">Merah</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="biru" class="selectgroup-input">
-                                        <span class="selectgroup-button">Biru</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="hijau" class="selectgroup-input">
-                                        <span class="selectgroup-button">Hijau</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="kuning" class="selectgroup-input">
-                                        <span class="selectgroup-button">Kuning</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="cream" class="selectgroup-input">
-                                        <span class="selectgroup-button">Cream</span>
-                                        </label>
-                                    </div>
-                                    <div class="selectgroup w-100">
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="abu-abu" class="selectgroup-input">
-                                        <span class="selectgroup-button">Abu-abu</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="pink" class="selectgroup-input">
-                                        <span class="selectgroup-button">Pink</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="ungu" class="selectgroup-input">
-                                        <span class="selectgroup-button">Ungu</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="coklat" class="selectgroup-input">
-                                        <span class="selectgroup-button">Coklat</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                        <input type="radio" name="color" value="oren" class="selectgroup-input">
-                                        <span class="selectgroup-button">Oren</span>
-                                        </label>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
