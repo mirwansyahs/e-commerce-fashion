@@ -10,7 +10,6 @@ class Size extends BaseController
     public function __construct()
     {
         $this->size = new SizeModel();
-        helper('text');
     }
 
     public function index()

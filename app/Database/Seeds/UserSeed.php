@@ -16,7 +16,7 @@ class UserSeed extends Seeder
                 'image'    => 'avatar-1.png',
                 'first_name'    => 'Ali',
                 'last_name'    => 'Abdurohman',
-                'telephone'    => '085155126055',
+                'telephone'    => '08123456789',
                 'level'    => 'admin',
                 'level'    => 'offline',
                 'created_at'    => Time::now(),

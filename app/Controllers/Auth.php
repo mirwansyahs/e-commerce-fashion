@@ -91,9 +91,10 @@ class Auth extends BaseController
         $doValid = $this->validate([
             'username' => [
                 'label' => 'Username',
-                'rules' => 'required|alpha_dash',
+                'rules' => 'required|alpha_dash|is_unique[user.username]',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong',
+                    'is_unique' => '{field} tidak boleh sama',
                     'alpha_dash' => '{field} hanya boleh berisi karakter alfanumerik, garis bawah, dan tanda hubung',
                 ]
             ],
@@ -181,7 +182,7 @@ class Auth extends BaseController
                 $user_id = $query->id;
                 $userAddress = [
                     'user_id' => $user_id,
-                    'address_line1' => $address,
+                    'address' => $address,
                     'country' => $country,
                     'province' => $province,
                     'city' => $city,

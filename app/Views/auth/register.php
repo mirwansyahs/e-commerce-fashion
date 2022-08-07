@@ -1,9 +1,9 @@
 <?= $this->extend('layout/auth/mainRegister') ?>
 
 <?= $this->section('content') ?>
-    <div class="card card-primary">
+    <div class="card card-dark">
         <div class="card-header">
-            <h4>Masuk</h4>
+            <h4>Daftar</h4>
         </div>
 
         <div class="card-body">
@@ -153,7 +153,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                    <button type="submit" class="btn btn-dark btn-lg btn-block" tabindex="4">
                       Daftar
                     </button>
                 </div>
@@ -163,6 +163,6 @@
     </div>
     
     <div class="mt-5 text-muted text-center">
-        Sudah punya akun? Silahkan <a href="masuk">Masuk</a>
+        Sudah punya akun? Silahkan <a href="masuk" class="text-dark">Masuk</a>
     </div>
 <?= $this->endSection() ?>

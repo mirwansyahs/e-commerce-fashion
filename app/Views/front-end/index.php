@@ -42,8 +42,7 @@
                         <a href="<?= site_url('produk-detail/') . $rp['slug']?>" class="text-decoration-none text-dark">
                             <p class="text-capitalize mt-3 mb-1"><?= $rp['name']?></p>
                         </a>
-                        <span class="fw-bold d-block">Rp. <?= $rp['price']?></span>
-                        <a href="#" class="btn btn-dark mt-3">Masukkan ke keranjang</a>
+                        <span class="fw-bold d-block">Rp. <?= number_format($rp['price'], 0, ',', '.')?></span>
                     </div>
                 </div>
                 <?php } ?>
@@ -103,8 +102,7 @@
                         <a href="<?= site_url('produk-detail/') . $rp['slug']?>" class="text-decoration-none text-dark">
                             <p class="text-capitalize mt-3 mb-1"><?= $p['name']?></p>
                         </a>
-                        <span class="fw-bold d-block">Rp. <?= $p['price']?></span>
-                        <a href="#" class="btn btn-dark mt-3">Masukkan ke keranjang</a>
+                        <span class="fw-bold d-block">Rp. <?= number_format($rp['price'], 0, ',', '.')?></span>
                     </div>
                 </div>
                 <?php } ?>

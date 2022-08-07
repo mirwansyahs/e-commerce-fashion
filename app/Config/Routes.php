@@ -37,9 +37,24 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/produk-detail/(:any)', 'Home::detail/$1');
+$routes->post('/addCart', 'Home::addCart');
 $routes->get('/keranjang', 'Home::cart');
+$routes->post('/checkout', 'Home::checkout');
+$routes->post('/checkoutProsses', 'Home::checkoutProsses');
+$routes->delete('/deleteItem/(:any)', 'Home::deleteItem/$1');
+$routes->get('/changeAddress', 'Home::changeAddress');
+$routes->put('/sendChangeAddress/(:any)', 'Home::sendChangeAddress/$1');
+$routes->get('/akun-saya/(:any)', 'Home::profile/$1');
+$routes->put('/simpan-akun-saya/(:any)', 'Home::saveProfile/$1');
+$routes->get('/ubah-alamat/(:any)', 'Home::address/$1');
+$routes->put('/simpan-ubah-alamat/(:any)', 'Home::saveAddress/$1');
+$routes->get('/pesanan-saya', 'Home::myOrder');
+$routes->get('/pesanan-dikirim', 'Home::orderSent');
+$routes->put('/orderSentUpdate/(:any)', 'Home::orderSentUpdate/$1');
+$routes->get('/pesanan-diterima', 'Home::orderAccepted');
 
 // Auth
+$routes->get('/pay', 'Payment::index');
 $routes->get('/masuk', 'Auth::index');
 $routes->post('/login', 'Auth::proccess');
 $routes->get('/daftar', 'Auth::register');
@@ -87,6 +102,13 @@ $routes->get('/edit-diskon/(:num)', 'Discount::edit/$1');
 $routes->put('/updatediscount/(:any)', 'Discount::update/$1');
 $routes->delete('/hapus-diskon/(:segment)', 'Discount::delete/$1');
 
+$routes->get('/jasa-pengiriman', 'Delivery::index');
+$routes->get('/tambah-jasa-pengiriman', 'Delivery::add');
+$routes->post('/savedelivery', 'Delivery::save');
+$routes->get('/edit-jasa-pengiriman/(:num)', 'Delivery::edit/$1');
+$routes->put('/updatedelivery/(:any)', 'Delivery::update/$1');
+$routes->delete('/hapus-jasa-pengiriman/(:segment)', 'Delivery::delete/$1');
+
 $routes->get('/produk', 'Product::index');
 $routes->get('/tambah-produk', 'Product::add');
 $routes->post('/saveproduct', 'Product::save');
@@ -96,16 +118,24 @@ $routes->delete('/hapus-produk/(:segment)', 'Product::delete/$1');
 
 $routes->get('/orderan-masuk', 'Order::index');
 $routes->get('/detail-orderan-masuk/(:num)', 'Order::detailOrderIn/$1');
-$routes->get('/orderan-dikirim', 'Order::orderSent');
-$routes->get('/detail-orderan-dikirim/(:num)', 'Order::detailOrderSent/$1');
-$routes->get('/orderan-selesai', 'Order::orderCompleted');
-$routes->get('/detail-orderan-selesai/(:num)', 'Order::detailOrderCompleted/$1');
+$routes->get('/konfiramsi-pengiriman', 'Order::viewSendResi');
+$routes->put('/sendResi/(:any)', 'Order::sendResi/$1');
+$routes->get('/orderan-dikirim', 'Order::orderDelivery');
+$routes->put('/simpan-orderan-diterima/(:any)', 'Order::saveOrderCompleted/$1');
+$routes->get('/detail-orderan-dikirim/(:num)', 'Order::detailOrderDelivery/$1');
+$routes->get('/orderan-diterima', 'Order::orderCompleted');
+$routes->get('/detail-orderan-diterima/(:num)', 'Order::detailOrderCompleted/$1');
+$routes->get('/orderan-print/(:num)', 'Order::print/$1');
 
 $routes->get('/pelanggan', 'Costumer::index');
 
 $routes->get('/chat', 'Chat::index');
 $routes->get('/list', 'Chat::list');
 $routes->post('/send', 'Chat::send');
+$routes->post('/markAllAsRead', 'Chat::markAllAsRead');
+
+$routes->get('/laporan', 'Report::index');
+$routes->post('/printReport', 'Report::printReport');
 
 $routes->get('/profil', 'Profile::index');
 $routes->post('/save', 'Profile::save');

@@ -8,5 +8,5 @@ class UserAddressModel extends Model
 {
     protected $table            = 'user_address';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['user_id', 'address_line1', 'address_line2', 'country', 'province', 'city', 'district', 'village', 'postal_code', 'telephone'];
+    protected $allowedFields    = ['user_id', 'address', 'country', 'province', 'city', 'district', 'village', 'postal_code', 'telephone'];
 }

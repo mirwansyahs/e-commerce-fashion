@@ -103,4 +103,17 @@ class Chat extends BaseController
         $this->db->table('message_latest')->where(['user_id' => $user_id])->update($latest_params);
         return redirect()->to(site_url('chat'));
     }
+
+    public function markAllAsRead() {
+        $chat = $this->chat->findAll();
+        foreach ($chat as $c) {
+            $sender_id =  $c['user_id'];
+            if ($sender_id != 1) {
+                $this->db->table('message')->where(['sender_id' => $sender_id])->update(['is_read' => 1]);
+            }
+        }
+
+
+        return redirect()->to(site_url('chat'));
+    }
 }

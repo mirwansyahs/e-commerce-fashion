@@ -50,6 +50,12 @@
                         <h4 class="profile-widget-name"><?= $profile['last_name']; ?></h4>
                       </div>
                       <div class="col-md-5">
+                        <label class="profile-widget-name text-muted">Email</label>
+                      </div>
+                      <div class="col-md-7">
+                        <h4 class="profile-widget-name"><?= $profile['email']; ?></h4>
+                      </div>
+                      <div class="col-md-5">
                         <label class="profile-widget-name text-muted">No. Telepon</label>
                       </div>
                       <div class="col-md-7">
@@ -95,6 +101,15 @@
                             <input type="text" class="form-control" name="last_name" value="<?= $profile['last_name']; ?>" required>
                             <div class="invalid-feedback">
                               Nama belakang tidak boleh kosong
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-group col-lg-12">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" value="<?= $profile['email']; ?>" required>
+                            <div class="invalid-feedback">
+                              Email tidak boleh kosong
                             </div>
                           </div>
                         </div>

@@ -70,12 +70,39 @@
                         </div>
                       </div>
                       <div class="form-group row mb-4">
+                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tentang</label>
+                        <div class="col-sm-12 col-md-7">
+                          <textarea class="form-control" name="about" required><?= $setting['about']; ?></textarea>
+                          <div class="invalid-feedback">
+                            Tentang tidak boleh kosong
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row mb-4">
                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Alamat</label>
                         <div class="col-sm-12 col-md-7">
                           <textarea class="form-control" name="address" required><?= $setting['address']; ?></textarea>
                           <div class="invalid-feedback">
                             Alamat depan tidak boleh kosong
                           </div>
+                        </div>
+                      </div>
+                      <div class="form-group row mb-4">
+                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Facebook</label>
+                        <div class="col-sm-12 col-md-7">
+                          <input type="text" class="form-control" name="facebook" value="<?= $setting['facebook']; ?>">
+                        </div>
+                      </div>
+                      <div class="form-group row mb-4">
+                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Instagram</label>
+                        <div class="col-sm-12 col-md-7">
+                          <input type="text" class="form-control" name="instagram" value="<?= $setting['instagram']; ?>">
+                        </div>
+                      </div>
+                      <div class="form-group row mb-4">
+                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Twitter</label>
+                        <div class="col-sm-12 col-md-7">
+                          <input type="text" class="form-control" name="twitter" value="<?= $setting['twitter']; ?>">
                         </div>
                       </div>
                       <div class="form-group row mb-4">

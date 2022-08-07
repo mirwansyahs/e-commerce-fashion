@@ -1,7 +1,7 @@
 <?= $this->extend('layout/auth/main') ?>
 
 <?= $this->section('content') ?>
-    <div class="card card-primary">
+    <div class="card card-dark">
         <div class="card-header">
             <h4>Lupa Kata Sandi</h4>
         </div>
@@ -27,12 +27,12 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                    <button type="submit" class="btn btn-dark btn-lg btn-block" tabindex="4">
                       Lupa Kata Sandi
                     </button>
 
                     <div class="mt-4 text-muted text-center text-decoration-none">
-                        <a href="masuk">Kembali</a>
+                        <a href="masuk" class="text-dark">Kembali</a>
                     </div>
                 </div>
             </form>

@@ -31,7 +31,11 @@ class Setting extends BaseController
         $name = $this->request->getVar('name');
         $email = $this->request->getVar('email');
         $telephone = $this->request->getVar('telephone');
+        $about = $this->request->getVar('about');
         $address = $this->request->getVar('address');
+        $facebook = $this->request->getVar('facebook');
+        $instagram = $this->request->getVar('instagram');
+        $twitter = $this->request->getVar('twitter');
        
         $fileUpload = $_FILES['image']['name'];
         $setting = $this->setting->find($id);
@@ -61,7 +65,11 @@ class Setting extends BaseController
             'image' => $pathImage,
             'email' => $email,
             'telephone' => $telephone,
+            'about' => $about,
             'address' => $address,
+            'facebook' => $facebook,
+            'instagram' => $instagram,
+            'twitter' => $twitter,
             'modified_at' => Time::now('Asia/Jakarta', 'en_ID')
         ];
 

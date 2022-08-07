@@ -41,7 +41,10 @@
             <li class="<?= $request->uri->getSegment(1) == 'diskon' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
                 <a class="nav-link" href="<?= site_url('diskon')?>"><i class="fas fa-percent"></i> <span>Diskon</span></a>
             </li>
-            <li class="dropdown <?= $request->uri->getSegment(1) == 'order-masuk' || $request->uri->getSegment(1) == 'order-selesai' ? 'active' : ''?>">
+            <li class="<?= $request->uri->getSegment(1) == 'jasa-pengiriman' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
+                <a class="nav-link" href="<?= site_url('jasa-pengiriman')?>"><i class="fas fa-truck"></i> <span>Jasa Pengiriman</span></a>
+            </li>
+            <li class="dropdown <?= $request->uri->getSegment(1) == 'orderan-masuk' || $request->uri->getSegment(1) == 'orderan-dikirim' || $request->uri->getSegment(1) == 'orderan-diterima' ? 'active' : ''?>">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-bag"></i> <span>Order</span></a>
             <ul class="dropdown-menu">              
                 <li class="<?= $request->uri->getSegment(1) == 'orderan-masuk' ? 'active' : ''?>">
@@ -50,16 +53,19 @@
                 <li class="<?= $request->uri->getSegment(1) == 'orderan-dikirim' ? 'active' : ''?>">
                     <a class="nav-link" href="<?= site_url('orderan-dikirim')?>">Orderan Dikirim</a>
                 </li>                
-                <li class="<?= $request->uri->getSegment(1) == 'orderan-selesai' ? 'active' : ''?>">
-                    <a class="nav-link" href="<?= site_url('orderan-selesai')?>">Orderan Selesai</a>
+                <li class="<?= $request->uri->getSegment(1) == 'orderan-diterima' ? 'active' : ''?>">
+                    <a class="nav-link" href="<?= site_url('orderan-diterima')?>">Orderan Diterima</a>
                 </li>                
             </ul>
             </li>
             <li class="<?= $request->uri->getSegment(1) == 'pelanggan' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
                 <a class="nav-link" href="<?= site_url('pelanggan')?>"><i class="fas fa-user"></i> <span>Pelanggan</span></a>
             </li>
-            <li class="<?= $request->uri->getSegment(1) == 'chat' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
+            <!-- <li class="<?= $request->uri->getSegment(1) == 'chat' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
                 <a class="nav-link" href="<?= site_url('chat')?>"><i class="fas fa-comment-alt"></i> <span>Chat</span></a>
+            </li> -->
+            <li class="<?= $request->uri->getSegment(1) == 'laporan' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
+                <a class="nav-link" href="<?= site_url('laporan')?>"><i class="fas fa-chart-pie"></i> <span>Laporan</span></a>
             </li>
             <li class="menu-header">Pengaturan</li>
             <li class="<?= $request->uri->getSegment(1) == 'profil' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
@@ -71,7 +77,7 @@
             <li class="<?= $request->uri->getSegment(1) == 'pengaturan' || $request->uri->getSegment(1) == '' ? 'active' : ''?>">
                 <a class="nav-link" href="<?= site_url('pengaturan')?>"><i class="fas fa-cog"></i></i> <span>Pengaturan</span></a>
             </li>
-            <li class="mb-4"><a class="nav-link" href="keluar"><i class="fas fa-sign-out-alt"></i></i> <span>Keluar</span></a></li>
+            <li class="mb-4"><a class="nav-link" href="<?= site_url('keluar')?>"><i class="fas fa-sign-out-alt"></i></i> <span>Keluar</span></a></li>
         </ul>     
     </aside>
 </div>

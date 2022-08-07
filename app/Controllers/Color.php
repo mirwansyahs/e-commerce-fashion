@@ -10,7 +10,6 @@ class Color extends BaseController
     public function __construct()
     {
         $this->color = new ColorModel();
-        helper('text');
     }
 
     public function index()

@@ -48,6 +48,7 @@ class Profile extends BaseController
             $username = $this->request->getVar('username');
             $first_name = $this->request->getVar('first_name');
             $last_name = $this->request->getVar('last_name');
+            $email = $this->request->getVar('email');
             $telephone = $this->request->getVar('telephone');
     
             $fileUploadImage = $_FILES['image']['name'];
@@ -77,6 +78,7 @@ class Profile extends BaseController
                 'username' => $username,
                 'first_name' => $first_name,
                 'last_name' => $last_name,
+                'email' => $email,
                 'telephone' => $telephone,
                 'image' => $pathImage,
                 'modified_at' => Time::now('Asia/Jakarta', 'en_ID')

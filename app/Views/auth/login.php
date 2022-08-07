@@ -1,7 +1,7 @@
 <?= $this->extend('layout/auth/main') ?>
 
 <?= $this->section('content') ?>
-    <div class="card card-primary">
+    <div class="card card-dark">
         <div class="card-header">
             <h4>Masuk</h4>
         </div>
@@ -38,7 +38,7 @@
                     <div class="d-block">
                     	<label for="password" class="control-label">Kata Sandi</label>
                       <div class="float-right">
-                        <a href="lupa-kata-sandi" class="text-small">
+                        <a href="lupa-kata-sandi" class="text-small text-dark">
                           Lupa Kata Sandi?
                         </a>
                       </div>
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                    <button type="submit" class="btn btn-dark btn-lg btn-block" tabindex="4">
                       Masuk
                     </button>
                 </div>
@@ -60,6 +60,6 @@
     </div>
     
     <div class="mt-5 text-muted text-center">
-        Belum punya akun? Silahkan <a href="daftar">Daftar</a>
+        Belum punya akun? Silahkan <a href="daftar" class="text-dark">Daftar</a>
     </div>
 <?= $this->endSection() ?>
