@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="<?= site_url('front-end/dist/bootstrap-5.0.2/css/bootstrap.min.css') ?>">
     <!-- custom css -->
     <link rel="stylesheet" href="<?= site_url('front-end/css/main.css') ?>">
+
+    <!-- Sweetalert -->
+    <link rel="stylesheet" href="<?= base_url('front-end/dist/sweetalert2.11.4.4/dist//sweetalert2.min.css') ?>">
     <?= $this->renderSection('css') ?>
 </head>
 
@@ -204,6 +207,8 @@
     <script src="<?= site_url('front-end/js/jquery-3.6.0.js') ?>"></script>
     <!-- bootstrap js -->
     <script src="<?= site_url('front-end/dist/bootstrap-5.0.2/js/bootstrap.min.js') ?>"></script>
+    <!-- Sweetalert -->
+    <script src="<?= base_url('front-end/dist/sweetalert2.11.4.4/dist/sweetalert2.all.min.js') ?>"></script>
     <!-- custom js -->
     <script src="<?= site_url('front-end/js/script.js') ?>"></script>
 

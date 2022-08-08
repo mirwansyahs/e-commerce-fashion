@@ -254,8 +254,17 @@
                 dataType: "json",
                 success: function(response) {
                   if (response.success) {
-                    alert(response.success);
-                    window.location.reload();
+                    if (response.success) {
+                      Swal.fire(
+                        'Berhasil!',
+                        response.success,
+                        'success'
+                      ).then((result) => {
+                        if (result.isConfirmed) {
+                          location.reload();
+                        }
+                      });
+                    }
                   }
                 },
                 error: function(xhr, thrownError) {
@@ -286,8 +295,17 @@
                 dataType: "json",
                 success: function(response) {
                   if (response.success) {
-                    alert(response.success);
-                    window.location.reload();
+                    if (response.success) {
+                      Swal.fire(
+                        'Berhasil!',
+                        response.success,
+                        'success'
+                      ).then((result) => {
+                        if (result.isConfirmed) {
+                          location.reload();
+                        }
+                      });
+                    }
                   }
                 },
                 error: function(xhr, thrownError) {
@@ -318,8 +336,17 @@
                 dataType: "json",
                 success: function(response) {
                   if (response.success) {
-                    alert(response.success);
-                    window.location.reload();
+                    if (response.success) {
+                      Swal.fire(
+                        'Berhasil!',
+                        response.success,
+                        'success'
+                      ).then((result) => {
+                        if (result.isConfirmed) {
+                          location.reload();
+                        }
+                      });
+                    }
                   }
                 },
                 error: function(xhr, thrownError) {
