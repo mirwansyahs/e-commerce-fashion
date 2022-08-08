@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Agu 2022 pada 06.21
+-- Waktu pembuatan: 08 Agu 2022 pada 06.29
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -44,8 +44,7 @@ CREATE TABLE `cart_item` (
 
 INSERT INTO `cart_item` (`id`, `session_id`, `product_id`, `size`, `color`, `quantity`, `created_at`, `modified_at`) VALUES
 (2, 2, 7, 'XL', 'Hitam', 2, NULL, NULL),
-(4, 8, 10, '32', 'Hitam', 2, '2022-08-03 16:52:59', NULL),
-(5, 9, 7, 'L', 'Hitam', 2, '2022-08-03 17:09:35', NULL);
+(7, 11, 28, 'XL', 'Hitam', 1, '2022-08-08 05:58:15', NULL);
 
 -- --------------------------------------------------------
 
@@ -55,6 +54,7 @@ INSERT INTO `cart_item` (`id`, `session_id`, `product_id`, `size`, `color`, `qua
 
 CREATE TABLE `color` (
   `id` int(11) UNSIGNED NOT NULL,
+  `product_id` int(11) UNSIGNED NOT NULL,
   `color` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -64,12 +64,17 @@ CREATE TABLE `color` (
 -- Dumping data untuk tabel `color`
 --
 
-INSERT INTO `color` (`id`, `color`, `created_at`, `modified_at`) VALUES
-(1, 'Hitam', '2022-07-30 03:37:29', '2022-07-30 03:37:29'),
-(2, 'Merah', '2022-07-30 03:37:29', '2022-07-30 03:37:29'),
-(3, 'Biru', '2022-07-30 03:37:29', '2022-07-30 03:37:29'),
-(4, 'Hijau', '2022-07-30 03:37:29', '2022-07-30 03:37:29'),
-(5, 'Kuning', '2022-07-30 06:48:54', '2022-07-30 06:48:54');
+INSERT INTO `color` (`id`, `product_id`, `color`, `created_at`, `modified_at`) VALUES
+(1, 7, 'Hitam', '2022-07-30 03:37:29', '2022-07-30 03:37:29'),
+(2, 7, 'Merah', '2022-07-30 03:37:29', '2022-07-30 03:37:29'),
+(3, 7, 'Biru', '2022-07-30 03:37:29', '2022-07-30 03:37:29'),
+(4, 7, 'Hijau', '2022-07-30 03:37:29', '2022-07-30 03:37:29'),
+(5, 7, 'Kuning', '2022-07-30 06:48:54', '2022-07-30 06:48:54'),
+(7, 10, 'Hitam', '2022-08-08 04:08:25', '2022-08-08 04:12:52'),
+(8, 28, 'Hitam', '2022-08-08 04:19:59', '2022-08-08 04:20:11'),
+(9, 28, 'Merah', '2022-08-08 04:20:22', '2022-08-08 04:20:22'),
+(10, 28, 'Biru', '2022-08-08 04:20:32', '2022-08-08 04:20:32'),
+(11, 28, 'Navy', '2022-08-08 04:20:41', '2022-08-08 04:20:41');
 
 -- --------------------------------------------------------
 
@@ -263,41 +268,45 @@ CREATE TABLE `order_details` (
   `date_received` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data untuk tabel `order_details`
---
-
-INSERT INTO `order_details` (`id`, `invoice`, `user_id`, `delivery_id`, `resi`, `subtotal`, `shiping`, `total`, `payment_id`, `booking_date`, `delivery_date`, `date_received`) VALUES
-(31, 'INV0608220001', 2, 2, 'JPQ12121211', '144900', 5000, '224900', 30, '2022-08-06 09:35:58', '2022-08-05 16:55:37', '2022-08-06 16:52:24');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `order_items`
+-- Struktur dari tabel `order_product`
 --
 
-CREATE TABLE `order_items` (
-  `order_items_id` int(11) UNSIGNED NOT NULL,
+CREATE TABLE `order_product` (
   `order_id` int(11) UNSIGNED NOT NULL,
+  `invoice` varchar(20) NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   `product_id` int(11) UNSIGNED NOT NULL,
+  `payment_id` int(11) UNSIGNED NOT NULL,
+  `delivery_id` int(11) UNSIGNED NOT NULL,
   `size_item` varchar(5) NOT NULL,
   `color_item` varchar(100) NOT NULL,
   `qty` int(11) NOT NULL,
-  `status_item` enum('in','delivery','complete') NOT NULL
+  `status_item` enum('in','delivery','complete') NOT NULL,
+  `resi` varchar(50) NOT NULL,
+  `subtotal` int(11) NOT NULL,
+  `shiping` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `booking_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `delivery_date` timestamp NULL DEFAULT NULL,
+  `date_received` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `order_items`
+-- Dumping data untuk tabel `order_product`
 --
 
-INSERT INTO `order_items` (`order_items_id`, `order_id`, `product_id`, `size_item`, `color_item`, `qty`, `status_item`) VALUES
-(12, 31, 7, 'XL', 'Hitam', 2, 'complete');
+INSERT INTO `order_product` (`order_id`, `invoice`, `user_id`, `product_id`, `payment_id`, `delivery_id`, `size_item`, `color_item`, `qty`, `status_item`, `resi`, `subtotal`, `shiping`, `total`, `booking_date`, `delivery_date`, `date_received`) VALUES
+(15, 'INV0808220001', 2, 10, 33, 2, '32', 'Hitam', 2, 'complete', 'JNP87283232', 144900, 5000, 224900, '2022-08-08 05:52:04', '2022-08-08 06:12:38', '2022-08-08 06:25:39'),
+(16, 'INV0808220001', 2, 7, 33, 2, 'L', 'Hitam', 2, 'complete', 'JNP87283232', 75000, 5000, 224900, '2022-08-08 05:52:04', '2022-08-08 06:12:45', '2022-08-08 06:27:49');
 
 --
--- Trigger `order_items`
+-- Trigger `order_product`
 --
 DELIMITER $$
-CREATE TRIGGER `InsertOrderItem` BEFORE INSERT ON `order_items` FOR EACH ROW BEGIN
+CREATE TRIGGER `InsertOrderItem` BEFORE INSERT ON `order_product` FOR EACH ROW BEGIN
 	UPDATE product set quantity = quantity - NEW.qty 
     WHERE id = NEW.product_id;
 END
@@ -324,8 +333,7 @@ CREATE TABLE `payment_details` (
 --
 
 INSERT INTO `payment_details` (`id`, `user_payment_id`, `gross_amount`, `bank`, `transaction_status`, `transaction_time`) VALUES
-(30, 31, 224900, 'bca', 'pending', '2022-08-06 09:35:57'),
-(31, 32, 224900, 'bca', 'pending', '2022-08-06 11:26:53');
+(33, 34, 224900, 'bri', 'pending', '2022-08-08 05:52:01');
 
 -- --------------------------------------------------------
 
@@ -357,9 +365,9 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `image`, `slug`, `desc`, `category_id`, `brand_id`, `material`, `weight`, `quantity`, `discount_id`, `original_price`, `price`, `created_at`, `modified_at`, `deleted_at`) VALUES
-(7, 'Kaos Polos Hitam', 'kaos.jpg', 'kaos-polos-hitam', '<p>Ready kaos polos super premium\r\n</p><p>DETAIL KAOS :\r\nKaos polos basic\r\nmatt spandex asli premium 30s\r\nBahan adem,lembut ,nyerap keringat,di jamin nyaman di pakai\r\nJahitan rantai rapi standar distro clothing\r\n</p><p>\r\nNB:\r\nBUKAN SPANDEX PE YG HARGA JUAL 18 RIBUAN\r\nTEKSTUR BAHAN PANAS DAN CEPAT BERBULU</p><p>\r\n\r\nSIZE CHART :\r\nM=LD 96cm x PJG 66cm\r\nL=LD 98cm x PJG 68cm\r\nXL=LD 100cm x  PJG 70cm\r\n</p><p>Toleransi 1-2 cm, karna produksi nya massal\r\nBerat produk 180gr\r\n1kg muat 7 pcs\r\n\r\nKualitas original mantap\r\nreal pict & good quality\r\n\r\n\r\n#kaospolos #T-shirtso-neck #kaosdistro #kaospolosmurah #kaospolosspandex\r\n\r\nTerima kasih!</p>', 1, 2, 'cotton', '300gram', 91, 2, 75000, '37500', '2022-07-20 01:59:50', '2022-07-29 03:07:05', NULL),
-(10, 'Celana panjang jeans pria hitam premium', 'Celana panjang jeans pria hitam premium.jpg', 'celana-panjang-jeans-pria-hitam-premium', '<p>==========================================\r\n</p><p>● Bahan : Badjatex Premium Stretch</p><p>● Model : Slim Fit\r\n</p><p>● Bahan Strerch /  elastis nyaman dipakai</p><p>\r\n==========================================\r\n</p><p>\r\nPanduan Size Chart Lokal :</p><p>\r\nUkuran  28 : Lingkaran pinggang 72 cm x Panjang Celana 98 cm\r\n</p><p>Ukuran  30 : Lingkaran pinggang 78 cm x Panjang Celana 99 cm</p><p>Ukuran  32 : Lingkaran pinggang 83 cm x Panjang Celana 100 cm\r\n</p><p>Ukuran  34 : Lingkaran pinggang 88 cm x Panjang Celana 101 cm</p><p>\r\n\r\n*Toleransi Ukuran 1-2 Centimeters\r\n\r\nLengkapi keseharian kalian dengan CELVIN DENIM STRETCH. Bahan kualitas premium dan diproduksi dari tangan-tangan kreatif INDONESIA bakal bikin hari hari kalian semakin sempurna.\r\nBahan Denim Stretch (bahan melar / ngaret) dan potongan SLIMFIT akan bikin kalian nyaman, bebas bergerak, dan terlihat semakin kece.\r\n\r\nHappy Shopping Guyss :)</p>', 2, 1, 'levis', '320gram', 97, 2, 144900, '72450', '2022-07-22 08:01:58', '2022-07-29 14:36:57', NULL),
-(28, 'asdasd', 'asdasd_1.jpg', 'asdasd', '<p>adasd</p>', 1, 1, 'adasd', '340gram', 22, 1, 121212212, '121212212', '2022-07-30 05:03:30', '2022-07-30 06:20:10', NULL);
+(7, 'Kaos Polos', 'kaos.jpg', 'kaos-polos', '<p>Ready kaos polos super premium\r\n</p><p>DETAIL KAOS :\r\nKaos polos basic\r\nmatt spandex asli premium 30s\r\nBahan adem,lembut ,nyerap keringat,di jamin nyaman di pakai\r\nJahitan rantai rapi standar distro clothing\r\n</p><p>\r\nNB:\r\nBUKAN SPANDEX PE YG HARGA JUAL 18 RIBUAN\r\nTEKSTUR BAHAN PANAS DAN CEPAT BERBULU</p><p>\r\n\r\nSIZE CHART :\r\nM=LD 96cm x PJG 66cm\r\nL=LD 98cm x PJG 68cm\r\nXL=LD 100cm x  PJG 70cm\r\n</p><p>Toleransi 1-2 cm, karna produksi nya massal\r\nBerat produk 180gr\r\n1kg muat 7 pcs\r\n\r\nKualitas original mantap\r\nreal pict & good quality\r\n\r\n\r\n#kaospolos #T-shirtso-neck #kaosdistro #kaospolosmurah #kaospolosspandex\r\n\r\nTerima kasih!</p>', 1, 2, 'cotton', '300gram', 87, 2, 75000, '37500', '2022-07-20 01:59:50', '2022-08-08 04:02:31', NULL),
+(10, 'Celana panjang jeans premium', 'Celana panjang jeans pria hitam premium.jpg', 'celana-panjang-jeans-premium', '<p>==========================================\r\n</p><p>● Bahan : Badjatex Premium Stretch</p><p>● Model : Slim Fit\r\n</p><p>● Bahan Strerch /  elastis nyaman dipakai</p><p>\r\n==========================================\r\n</p><p>\r\nPanduan Size Chart Lokal :</p><p>\r\nUkuran  28 : Lingkaran pinggang 72 cm x Panjang Celana 98 cm\r\n</p><p>Ukuran  30 : Lingkaran pinggang 78 cm x Panjang Celana 99 cm</p><p>Ukuran  32 : Lingkaran pinggang 83 cm x Panjang Celana 100 cm\r\n</p><p>Ukuran  34 : Lingkaran pinggang 88 cm x Panjang Celana 101 cm</p><p>\r\n\r\n*Toleransi Ukuran 1-2 Centimeters\r\n\r\nLengkapi keseharian kalian dengan CELVIN DENIM STRETCH. Bahan kualitas premium dan diproduksi dari tangan-tangan kreatif INDONESIA bakal bikin hari hari kalian semakin sempurna.\r\nBahan Denim Stretch (bahan melar / ngaret) dan potongan SLIMFIT akan bikin kalian nyaman, bebas bergerak, dan terlihat semakin kece.\r\n\r\nHappy Shopping Guyss :)</p>', 2, 1, 'levis', '320gram', 93, 2, 144900, '72450', '2022-07-22 08:01:58', '2022-08-08 04:03:08', NULL),
+(28, 'Crewneck Champions', 'asdasd_1.jpg', 'crewneck-champions', '<p>SIZE CHART CHAMPION\r\n</p><p>Panjang X Lebar\r\n</p><p>M- 64 x 50</p><p>L- 65 x 52</p><p>XL- 67 x 55\r\n</p><p>\r\nFULL LABEL\r\n</p><p>\r\nNOTE: </p><p>Kenapa murah? Karena ini barang langsung dari pabrik dan tidak lulus QC (QUALITY CONTROL) atau barang sisa lebih, Jadi kalo ada beberapa yang kotor dikit jangan kaget yahh, namanya barang tidak lulus QC tapi dijamin ? ORIGINAL dan barang sama seperti di store, kalau mau barang perfect langsung beli di storenya aja yahh.</p>', 1, 1, 'adasd', '340gram', 22, 1, 150000, '150000', '2022-07-30 05:03:30', '2022-08-08 04:41:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -412,39 +420,6 @@ INSERT INTO `product_category` (`category_id`, `category_name`, `category_slug`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `product_detail`
---
-
-CREATE TABLE `product_detail` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `product_id` int(11) UNSIGNED NOT NULL,
-  `size_id` int(11) UNSIGNED NOT NULL,
-  `color_id` int(11) UNSIGNED NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `modified_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `product_detail`
---
-
-INSERT INTO `product_detail` (`id`, `product_id`, `size_id`, `color_id`, `created_at`, `modified_at`) VALUES
-(18, 28, 1, 1, '2022-07-30 06:20:10', '2022-07-30 05:03:30'),
-(19, 28, 2, 2, '2022-07-30 06:20:10', '2022-07-30 05:03:30'),
-(20, 28, 3, 3, '2022-07-30 06:20:10', '2022-07-30 05:03:30'),
-(21, 28, 4, 4, '2022-07-30 06:20:10', '2022-07-30 05:03:31'),
-(22, 10, 1, 1, '2022-07-30 07:05:59', '2022-07-30 07:05:59'),
-(23, 10, 2, 2, '2022-07-30 07:05:59', '2022-07-30 07:05:59'),
-(24, 10, 3, 3, '2022-07-30 07:05:59', '2022-07-30 07:05:59'),
-(25, 10, 4, 4, '2022-07-30 07:05:59', '2022-07-30 07:05:59'),
-(26, 7, 1, 1, '2022-07-30 07:07:01', '2022-07-30 07:07:01'),
-(27, 7, 2, 2, '2022-07-30 07:07:01', '2022-07-30 07:07:01'),
-(28, 7, 3, 3, '2022-07-30 07:07:01', '2022-07-30 07:07:01'),
-(29, 7, 4, 4, '2022-07-30 07:07:01', '2022-07-30 07:07:01');
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `shopping_session`
 --
 
@@ -462,8 +437,8 @@ CREATE TABLE `shopping_session` (
 
 INSERT INTO `shopping_session` (`id`, `user_id`, `total`, `created_at`, `modified_at`) VALUES
 (2, 3, '37500', NULL, NULL),
-(8, 2, '144900', '2022-08-03 16:52:59', NULL),
-(9, 2, '75000', '2022-08-03 17:09:35', NULL);
+(10, 2, '150000', '2022-08-08 05:56:25', NULL),
+(11, 2, '150000', '2022-08-08 05:58:15', NULL);
 
 -- --------------------------------------------------------
 
@@ -473,6 +448,7 @@ INSERT INTO `shopping_session` (`id`, `user_id`, `total`, `created_at`, `modifie
 
 CREATE TABLE `size` (
   `id` int(11) UNSIGNED NOT NULL,
+  `product_id` int(11) UNSIGNED NOT NULL,
   `size` varchar(4) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `modified_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -482,12 +458,25 @@ CREATE TABLE `size` (
 -- Dumping data untuk tabel `size`
 --
 
-INSERT INTO `size` (`id`, `size`, `created_at`, `modified_at`) VALUES
-(1, 'S', '2022-07-30 03:38:14', '2022-07-30 03:38:14'),
-(2, 'M', '2022-07-30 03:38:14', '2022-07-30 03:38:14'),
-(3, 'L', '2022-07-30 03:38:14', '2022-07-30 03:38:14'),
-(4, 'XL', '2022-07-30 03:38:14', '2022-07-30 03:38:14'),
-(5, 'XXL', '2022-07-30 06:45:48', '2022-07-30 06:46:02');
+INSERT INTO `size` (`id`, `product_id`, `size`, `created_at`, `modified_at`) VALUES
+(1, 7, 'S', '2022-07-30 03:38:14', '2022-07-30 03:38:14'),
+(2, 7, 'M', '2022-07-30 03:38:14', '2022-07-30 03:38:14'),
+(3, 7, 'L', '2022-07-30 03:38:14', '2022-07-30 03:38:14'),
+(4, 7, 'XL', '2022-07-30 03:38:14', '2022-07-30 03:38:14'),
+(5, 7, 'XXL', '2022-07-30 06:45:48', '2022-07-30 06:46:02'),
+(8, 10, '28', '2022-08-08 04:24:27', '2022-08-08 04:25:38'),
+(9, 10, '29', '2022-08-08 04:26:20', '2022-08-08 04:26:20'),
+(10, 10, '30', '2022-08-08 04:26:31', '2022-08-08 04:26:31'),
+(11, 10, '31', '2022-08-08 04:26:42', '2022-08-08 04:26:42'),
+(12, 10, '32', '2022-08-08 04:26:52', '2022-08-08 04:26:52'),
+(13, 10, '33', '2022-08-08 04:27:07', '2022-08-08 04:27:07'),
+(14, 10, '34', '2022-08-08 04:27:50', '2022-08-08 04:27:50'),
+(15, 10, '35', '2022-08-08 04:27:59', '2022-08-08 04:28:06'),
+(16, 28, 'M', '2022-08-08 04:28:32', '2022-08-08 04:28:32'),
+(17, 28, 'S', '2022-08-08 04:28:43', '2022-08-08 04:28:43'),
+(18, 28, 'L', '2022-08-08 04:28:54', '2022-08-08 04:28:54'),
+(19, 28, 'XL', '2022-08-08 04:29:11', '2022-08-08 04:29:11'),
+(20, 28, 'XXL', '2022-08-08 04:29:23', '2022-08-08 04:29:23');
 
 -- --------------------------------------------------------
 
@@ -543,7 +532,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `image`, `first_name`, `last_name`, `email`, `telephone`, `level`, `status`, `created_at`, `modified_at`) VALUES
-(1, 'ali', '$2y$10$U7tywMON7QRz0z3IhoURweqjjtSf.nEAryxFqRf5uQGEBiaTcLkXa', 'avatar-1.png', 'Ali', 'Abdurohman', 'ali@gmail.com', '08123456789', 'admin', 'offline', '2022-07-16 21:17:13', '2022-08-03 04:43:57'),
+(1, 'ali', '$2y$10$U7tywMON7QRz0z3IhoURweqjjtSf.nEAryxFqRf5uQGEBiaTcLkXa', 'avatar-1.png', 'Ali', 'Abdurohman', 'ali@gmail.com', '08123456789', 'admin', 'online', '2022-07-16 21:17:13', '2022-08-03 04:43:57'),
 (2, 'user', '$2y$10$slfY443MHVJdzhrFTln5p.KOLiGMabiqJaYK1mKo5Pszk4xkGM0Fm', 'user.png', 'User', '', 'user@gmail.com', '081233434392', 'user', 'offline', '2022-07-16 21:17:13', '2022-07-16 21:17:13'),
 (3, 'percobaan', 'percobaan', 'percobaan.png', 'Percobaan', '', 'percobaan@gmail.com', '0813434433', 'user', 'offline', '2022-07-21 10:50:47', NULL);
 
@@ -594,8 +583,7 @@ CREATE TABLE `user_payment` (
 --
 
 INSERT INTO `user_payment` (`id`, `user_id`, `payment_type`, `va_number`, `expiry`) VALUES
-(31, 2, 'bank_transfer', '78500870709', NULL),
-(32, 2, 'bank_transfer', '78500785064', NULL);
+(34, 2, 'bank_transfer', '785009126813079457', NULL);
 
 --
 -- Indexes for dumped tables
@@ -613,7 +601,8 @@ ALTER TABLE `cart_item`
 -- Indeks untuk tabel `color`
 --
 ALTER TABLE `color`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indeks untuk tabel `discount`
@@ -668,12 +657,14 @@ ALTER TABLE `order_details`
   ADD KEY `delivery_id` (`delivery_id`);
 
 --
--- Indeks untuk tabel `order_items`
+-- Indeks untuk tabel `order_product`
 --
-ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`order_items_id`),
+ALTER TABLE `order_product`
+  ADD PRIMARY KEY (`order_id`),
   ADD KEY `order_items_product_id_foreign` (`product_id`),
-  ADD KEY `order_id` (`order_id`);
+  ADD KEY `user_id_ibfk_1` (`user_id`),
+  ADD KEY `payment_id` (`payment_id`),
+  ADD KEY `delivery_id` (`delivery_id`);
 
 --
 -- Indeks untuk tabel `payment_details`
@@ -704,15 +695,6 @@ ALTER TABLE `product_category`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Indeks untuk tabel `product_detail`
---
-ALTER TABLE `product_detail`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `size_id` (`size_id`),
-  ADD KEY `product_id` (`product_id`),
-  ADD KEY `color_id` (`color_id`);
-
---
 -- Indeks untuk tabel `shopping_session`
 --
 ALTER TABLE `shopping_session`
@@ -723,7 +705,8 @@ ALTER TABLE `shopping_session`
 -- Indeks untuk tabel `size`
 --
 ALTER TABLE `size`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indeks untuk tabel `store`
@@ -759,13 +742,13 @@ ALTER TABLE `user_payment`
 -- AUTO_INCREMENT untuk tabel `cart_item`
 --
 ALTER TABLE `cart_item`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `discount`
@@ -810,16 +793,16 @@ ALTER TABLE `order_details`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT untuk tabel `order_items`
+-- AUTO_INCREMENT untuk tabel `order_product`
 --
-ALTER TABLE `order_items`
-  MODIFY `order_items_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+ALTER TABLE `order_product`
+  MODIFY `order_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `payment_details`
 --
 ALTER TABLE `payment_details`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `product`
@@ -840,22 +823,16 @@ ALTER TABLE `product_category`
   MODIFY `category_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `product_detail`
---
-ALTER TABLE `product_detail`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
 -- AUTO_INCREMENT untuk tabel `shopping_session`
 --
 ALTER TABLE `shopping_session`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `size`
 --
 ALTER TABLE `size`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `store`
@@ -879,7 +856,7 @@ ALTER TABLE `user_address`
 -- AUTO_INCREMENT untuk tabel `user_payment`
 --
 ALTER TABLE `user_payment`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -891,6 +868,12 @@ ALTER TABLE `user_payment`
 ALTER TABLE `cart_item`
   ADD CONSTRAINT `cart_item_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cart_item_session_id_foreign` FOREIGN KEY (`session_id`) REFERENCES `shopping_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `color`
+--
+ALTER TABLE `color`
+  ADD CONSTRAINT `color_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `message`
@@ -923,11 +906,13 @@ ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `order_items`
+-- Ketidakleluasaan untuk tabel `order_product`
 --
-ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order_details` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `order_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `order_product`
+  ADD CONSTRAINT `order_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_product_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `payment_details` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_product_ibfk_2` FOREIGN KEY (`delivery_id`) REFERENCES `order_delivery` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_id_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `payment_details`
@@ -944,18 +929,16 @@ ALTER TABLE `product`
   ADD CONSTRAINT `product_discount_id_foreign` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`discount_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `product_detail`
---
-ALTER TABLE `product_detail`
-  ADD CONSTRAINT `color_id_fk` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `size_id_fk` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Ketidakleluasaan untuk tabel `shopping_session`
 --
 ALTER TABLE `shopping_session`
   ADD CONSTRAINT `shopping_session_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `size`
+--
+ALTER TABLE `size`
+  ADD CONSTRAINT `size_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `user_address`

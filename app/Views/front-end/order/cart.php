@@ -18,39 +18,45 @@
             <div class="row">
 
               <div class="col-lg-7">
-                <?php foreach ($cart as $c) { ?>
-                  <?php if ($c['user_id'] == session('id')) { ?>
-                    <div class="card mb-3">
-                      <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                          <div class="d-flex flex-row align-items-center">
-                            <div>
-                              <img src="<?= site_url('img/product/' . $c['image']) ?>" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px; height: 68px">
-                            </div>
-                            <div class="ms-3">
-                              <h5 style="font-size: 18px;"><?= $c['name'] ?></h5>
-                              <p class="small mb-0"><?= $c['size'] ?>, <?= $c['color'] ?></p>
-                            </div>
-                          </div>
-                          <div class="d-flex flex-row align-items-center">
-                            <div style="width: 50px;">
-                              <div class="d-flex flex-row">
-                                <h5 class="fw-normal mb-0"><?= $c['quantity'] ?></h5>
+                <?php if ($cart != null) { ?>
+                  <?php foreach ($cart as $c) { ?>
+                    <?php if ($c['user_id'] == session('id')) { ?>
+                      <div class="card mb-3">
+                        <div class="card-body">
+                          <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                              <div>
+                                <img src="<?= site_url('img/product/' . $c['image']) ?>" class="img-fluid rounded-3" alt="Shopping item" style="width: 65px; height: 68px">
+                              </div>
+                              <div class="ms-3">
+                                <h5 style="font-size: 18px;"><?= $c['name'] ?></h5>
+                                <p class="small mb-0"><?= $c['size'] ?>, <?= $c['color'] ?></p>
                               </div>
                             </div>
-                            <div style="width: 100px;">
-                              <h6 class="mb-0">Rp <?= number_format($c['total'], 0, ',', '.') ?></h6>
+                            <div class="d-flex flex-row align-items-center">
+                              <div style="width: 50px;">
+                                <div class="d-flex flex-row">
+                                  <h5 class="fw-normal mb-0"><?= $c['quantity'] ?></h5>
+                                </div>
+                              </div>
+                              <div style="width: 100px;">
+                                <h6 class="mb-0">Rp <?= number_format($c['total'], 0, ',', '.') ?></h6>
+                              </div>
+                              <form action="deleteItem/<?= $c['id'] ?>" method="post">
+                                <?php csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="bg-white" style="border: none;"><i class="fas fa-trash-alt text-danger"></i></button>
+                              </form>
                             </div>
-                            <form action="deleteItem/<?= $c['id'] ?>" method="post">
-                              <?php csrf_field(); ?>
-                              <input type="hidden" name="_method" value="DELETE">
-                              <button class="bg-white" style="border: none;"><i class="fas fa-trash-alt text-danger"></i></button>
-                            </form>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    <?php } ?>
                   <?php } ?>
+                <?php } else { ?>
+                  <center>
+                    <h5>Tidak ada data pesanan yang dikeranjang!</h5>
+                  </center>
                 <?php } ?>
 
                 <hr>

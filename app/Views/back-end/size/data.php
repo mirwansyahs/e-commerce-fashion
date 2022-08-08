@@ -41,6 +41,8 @@
                     <thead>
                       <tr>
                         <th>No</th>
+                        <th>Foto Produk</th>
+                        <th>Nama Produk</th>
                         <th>Ukuran</th>
                         <th width="18%">Aksi</th>
                       </tr>
@@ -51,6 +53,8 @@
                       ?>
                       <tr>
                         <td><?= $no++; ?></td>
+                        <td><img src="/img/product/<?= $s['image']; ?>" alt="product" width="50px" height="50px"></td>
+                        <td><?= $s['name']; ?></td>
                         <td><?= $s['size']; ?></td>
                         <td>
                           <a href="edit-ukuran/<?= $s['id']?>" class="btn btn-success">Edit</a>

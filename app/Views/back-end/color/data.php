@@ -41,6 +41,8 @@
                     <thead>
                       <tr>
                         <th>No</th>
+                        <th>Foto Produk</th>
+                        <th>Nama Produk</th>
                         <th>Warna</th>
                         <th width="18%">Aksi</th>
                       </tr>
@@ -51,6 +53,8 @@
                       ?>
                       <tr>
                         <td><?= $no++; ?></td>
+                        <td><img src="/img/product/<?= $c['image']; ?>" alt="product" width="50px" height="50px"></td>
+                        <td><?= $c['name']; ?></td>
                         <td><?= $c['color']; ?></td>
                         <td>
                           <a href="edit-warna/<?= $c['id']?>" class="btn btn-success">Edit</a>

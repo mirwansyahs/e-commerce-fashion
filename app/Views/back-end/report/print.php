@@ -78,7 +78,7 @@
                                 <td><?= $r['color_item']; ?></td>
                                 <td>Rp <?= number_format($r['price'], 0, ',', '.')?></td>
                                 <td><?= $r['qty']; ?></td>
-                                <td><?= $r['provider']; ?></td>
+                                <td><?= $r['bank']; ?></td>
                                 <td>Rp <?= number_format($r['subtotal'], 0, ',', '.')?></td>
                             </tr>
                             <?php } ?>

@@ -115,6 +115,8 @@ $routes->post('/saveproduct', 'Product::save');
 $routes->get('/edit-produk/(:num)', 'Product::edit/$1');
 $routes->put('/updateproduct/(:any)', 'Product::update/$1');
 $routes->delete('/hapus-produk/(:segment)', 'Product::delete/$1');
+$routes->get('/tambah-warna-produk/(:num)', 'Product::addColor/$1');
+
 
 $routes->get('/orderan-masuk', 'Order::index');
 $routes->get('/detail-orderan-masuk/(:num)', 'Order::detailOrderIn/$1');

@@ -71,9 +71,9 @@
                         <?php } ?>
                       </td>
                       <td>
-                        <a href="orderan-print/<?= $o['order_items_id'] ?>" class="btn btn-primary mb-2" target="_blank">Cetak</a>
-                        <a href="detail-orderan-masuk/<?= $o['order_items_id'] ?>" class="btn btn-info mb-2">Detail</a>
-                        <button class="btn btn-success" onclick="sendresi('<?= $o['order_items_id'] ?>')">Dikirim</button>
+                        <a href="orderan-print/<?= $o['order_id'] ?>" class="btn btn-primary mb-2" target="_blank">Cetak</a>
+                        <a href="detail-orderan-masuk/<?= $o['order_id'] ?>" class="btn btn-info mb-2">Detail</a>
+                        <button class="btn btn-success" onclick="sendresi('<?= $o['order_id'] ?>')">Dikirim</button>
                       </td>
                     </tr>
                 <?php }
@@ -97,7 +97,7 @@
       url: "<?= site_url('konfiramsi-pengiriman') ?>",
       dataType: "json",
       data: {
-        idorderitem: id
+        order_id: id
       },
       success: function(response) {
         if (response.data) {

@@ -8,7 +8,6 @@ use App\Models\BrandModel;
 use App\Models\DiscountModel;
 use App\Models\SizeModel;
 use App\Models\ColorModel;
-use App\Models\ProductDetailModel;
 use CodeIgniter\I18n\Time;
 
 class Product extends BaseController
@@ -22,8 +21,6 @@ class Product extends BaseController
         $this->discount = new DiscountModel();
         $this->size = new SizeModel();
         $this->color = new ColorModel();
-        $this->detail = new ProductDetailModel();
-
     }
 
     public function index()
@@ -71,7 +68,7 @@ class Product extends BaseController
         if ($fileUploadImage != NULL) {
             $nameFileImage = "$name";
             $fileImage = $this->request->getFile('image');
-            $fileImage->move('img/product', $nameFileImage . '.' .$fileImage->getExtension());
+            $fileImage->move('img/product', $nameFileImage . '.' . $fileImage->getExtension());
 
             $pathImage = $fileImage->getName();
         } else {
@@ -98,8 +95,8 @@ class Product extends BaseController
         $product = $this->product->groupBy('id')->orderBy('id', 'DESC')->first();
 
 
-        for ($i=0; $i < count($size); $i++) { 
-            for ($i=0; $i < count($color); $i++) { 
+        for ($i = 0; $i < count($size); $i++) {
+            for ($i = 0; $i < count($color); $i++) {
                 $size_params = [
                     'product_id'    => $product['id'],
                     'size_id'          => $size[$i],
@@ -116,41 +113,26 @@ class Product extends BaseController
 
     public function edit($id)
     {
-        if ($id != null) {
-            $query = $this->detail->join('product', 'product.id = product_detail.product_id')
-                                ->join('size', 'size.id = product_detail.size_id')
-                                ->join('color', 'color.id = product_detail.color_id')
-                                ->getWhere(['product_id' => $id]);
-            
-            if ($query->resultID->num_rows > 0) {
-                $data = [
-                    'title' => 'Edit Produk',
-                    'product' => $query->getRow(),
-                    'category' => $this->category->findAll(),
-                    'brand' => $this->brand->findAll(),
-                    'discount' => $this->discount->findAll(),
-                    'size' => $this->size->findAll(),
-                    'color' => $this->color->findAll(),
-                ];
-        
-                return view('back-end/product/edit', $data);
-            } else {
-                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-            }
-        } else {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
+        $query = $this->product->getWhere(['id' => $id]);
+
+        $data = [
+            'title' => 'Edit Produk',
+            'product' => $query->getRow(),
+            'category' => $this->category->findAll(),
+            'brand' => $this->brand->findAll(),
+            'discount' => $this->discount->findAll(),
+        ];
+
+        return view('back-end/product/edit', $data);
     }
 
     public function update($id)
-    { 
+    {
         $detail_id = $this->request->getVar('detail_id');
         $name = $this->request->getVar('name');
         $desc = $this->request->getVar('desc');
         $category = $this->request->getVar('category');
         $brand = $this->request->getVar('brand');
-        $size = $this->request->getVar('size[]');
-        $color = $this->request->getVar('color[]');
         $material = $this->request->getVar('material');
         $stock = $this->request->getVar('stock');
         $discount = $this->request->getVar('discount');
@@ -161,21 +143,21 @@ class Product extends BaseController
 
         $fileUploadImage = $_FILES['image']['name'];
         $product = $this->db->table('product')->getWhere(['id' => $id])->getRow();
-    
+
         if ($fileUploadImage != NULL) {
             if ($product->image == "") {
                 $nameFileImage = "$name";
                 $fileImage = $this->request->getFile('image');
-                $fileImage->move('img/product/', $nameFileImage . '.' .$fileImage->getExtension());
-    
+                $fileImage->move('img/product/', $nameFileImage . '.' . $fileImage->getExtension());
+
                 $pathImage = $fileImage->getName();
-            }else {
+            } else {
                 unlink('img/product/' . $product->image);
-    
+
                 $nameFileImage = "$name";
                 $fileImage = $this->request->getFile('image');
-                $fileImage->move('img/product/', $nameFileImage . '.' .$fileImage->getExtension());
-    
+                $fileImage->move('img/product/', $nameFileImage . '.' . $fileImage->getExtension());
+
                 $pathImage = $fileImage->getName();
             }
         } else {
@@ -199,17 +181,6 @@ class Product extends BaseController
 
         $this->db->table('product')->where(['id' => $id])->update($params);
 
-        for ($i=0; $i < count($size); $i++) { 
-            for ($i=0; $i < count($color); $i++) { 
-                $size_params = [
-                    'product_id'    => $id,
-                    'size_id'       => $size[$i],
-                    'color_id'      => $color[$i],
-                    'created_at'    => Time::now('Asia/Jakarta', 'en_ID'),
-                ];
-                $this->db->table('product_detail')->where(['product_id' => $id])->update($size_params);
-            }
-        }
         return redirect()->to(site_url('produk'))->with('success', 'Selamat data berhasil diubah!');
     }
 

@@ -34,16 +34,10 @@ class Dashboard extends BaseController
             'orderIn'       => $this->order->where('status_item', 'in')->get()->getNumRows(),
             'orderDelivery' => $this->order->where('status_item', 'delivery')->get()->getNumRows(),
             'orderComplete' => $this->order->where('status_item', 'complete')->get()->getNumRows(),
-            'incomePerDay'  => $this->order->select('SUM(order_details.subtotal)')
-                                           ->join('order_details', 'order_details.id = order_items.order_id')
-                                           ->groupBy('DAY(date_received)')->orderBy('id', 'DESC')->first(),
-            'incomePerMonth'=> $this->order->select('SUM(order_details.subtotal)')
-                                           ->join('order_details', 'order_details.id = order_items.order_id')
-                                           ->groupBy('MONTH(date_received)')->orderBy('id', 'DESC')->first(),
-            'incomePerYear' => $this->order->select('SUM(order_details.subtotal)')
-                                           ->join('order_details', 'order_details.id = order_items.order_id')
-                                           ->groupBy('YEAR(date_received)')->orderBy('id', 'DESC')->first(),
-            'graph'         => $this->db->query("SELECT date_received, subtotal FROM order_details WHERE DATE_FORMAT(date_received, '%Y-%m') ORDER BY date_received ASC")->getResultArray(),
+            'incomePerDay'  => $this->order->select('SUM(order_product.subtotal)')->groupBy('DAY(date_received)')->orderBy('order_id', 'DESC')->first(),
+            'incomePerMonth'=> $this->order->select('SUM(order_product.subtotal)')->groupBy('MONTH(date_received)')->orderBy('order_id', 'DESC')->first(),
+            'incomePerYear' => $this->order->select('SUM(order_product.subtotal)')->groupBy('YEAR(date_received)')->orderBy('order_id', 'DESC')->first(),
+            'graph'         => $this->db->query("SELECT date_received, subtotal FROM order_product WHERE DATE_FORMAT(date_received, '%Y-%m') ORDER BY date_received ASC")->getResultArray(),
         ];
 
         return view('back-end/index', $data);

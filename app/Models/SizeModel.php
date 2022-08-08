@@ -8,5 +8,5 @@ class SizeModel extends Model
 {
     protected $table            = 'size';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['size', 'created_at', 'modified_at'];
+    protected $allowedFields    = ['product_id', 'size', 'created_at', 'modified_at'];
 }

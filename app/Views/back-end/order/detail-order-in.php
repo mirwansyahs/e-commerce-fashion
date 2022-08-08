@@ -98,7 +98,7 @@
           <div class="float-lg-left mb-lg-0 mb-3">
             <a href="<?= site_url('orderan-masuk') ?>" class="btn btn-danger btn-icon icon-left"><i class="fas fa-arrow-left"></i> Kembali</a>
           </div>
-          <a href="<?= site_url('orderan-print/') . $order->order_items_id ?>" class="btn btn-primary btn-icon icon-left" target="_blank"><i class="fas fa-print"></i> Print</a>
+          <a href="<?= site_url('orderan-print/') . $order->order_id ?>" class="btn btn-primary btn-icon icon-left" target="_blank"><i class="fas fa-print"></i> Print</a>
         </div>
       </div>
     </div>

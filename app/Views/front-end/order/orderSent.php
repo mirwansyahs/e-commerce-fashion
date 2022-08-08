@@ -63,7 +63,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="d-flex flex-row align-items-center">
-                                                        <form action="<?= site_url('orderSentUpdate/') . $o['order_items_id'] ?>" method="post">
+                                                        <form action="<?= site_url('orderSentUpdate/') . $o['order_id'] ?>" method="post">
                                                             <?php csrf_field(); ?>
                                                             <input type="hidden" name="_method" value="PUT">
                                                             <button class="bg-success" style="border: none; color: white;">Diterima</button>

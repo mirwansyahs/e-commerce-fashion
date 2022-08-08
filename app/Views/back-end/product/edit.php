@@ -21,7 +21,7 @@
             <div class="row mt-sm-4">
                 <div class="col-12 col-md-12 col-lg-7">
                     <div class="card">
-                        <form method="post" action="<?= site_url('updateproduct/' . $product->product_id) ?>" class="needs-validation" novalidate="" enctype="multipart/form-data">
+                        <form method="post" action="<?= site_url('updateproduct/' . $product->id) ?>" class="needs-validation" novalidate="" enctype="multipart/form-data">
                             <?php csrf_field(); ?>
                             <input type="hidden" name="detail_id" value="<?= $product->id ?>">
                             <div class="card-header">
@@ -67,45 +67,6 @@
                                         </select>
                                         <div class="invalid-feedback">
                                             Kategori tidak boleh kosong
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
-                                        <div class="form-group">
-                                            <label class="form-label">Ukuran</label>
-                                            <div class="selectgroup selectgroup-pills">
-                                                <?php foreach ($size as $s) { ?>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="size[]" value="<?= $s['id'] ?>" class="selectgroup-input" <?php if ($s['id'] == $product->size_id) {
-                                                                                                                                                    echo "checked='checked'";
-                                                                                                                                                } ?>>
-                                                        <span class="selectgroup-button"><?= $s['size'] ?></span>
-                                                    </label>
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
-                                        <div class="form-group">
-                                            <label class="form-label">Warna</label>
-                                            <div class="selectgroup selectgroup-pills">
-                                                <?php foreach ($color as $c) { ?>
-                                                    <?php if ($c['id'] == $product->color_id) { ?>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="color[]" value="<?= $c['id'] ?>" class="selectgroup-input" checked="">
-                                                            <span class="selectgroup-button"><?= $c['color'] ?></span>
-                                                        </label>
-                                                    <?php } else { ?>
-                                                        <label class="selectgroup-item">
-                                                            <input type="checkbox" name="color[]" value="<?= $c['id'] ?>" class="selectgroup-input">
-                                                            <span class="selectgroup-button"><?= $c['color'] ?></span>
-                                                        </label>
-                                                    <?php } ?>
-                                                <?php } ?>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

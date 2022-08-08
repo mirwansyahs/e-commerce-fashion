@@ -71,8 +71,8 @@
                         <?php } ?>
                       </td>
                       <td>
-                        <a href="detail-orderan-dikirim/<?= $o['order_items_id'] ?>" class="btn btn-info mb-2">Detail</a>
-                        <form action="<?= site_url('simpan-orderan-diterima/'.$o['order_items_id'])?>" method="post" class="d-inline">
+                        <a href="detail-orderan-dikirim/<?= $o['order_id'] ?>" class="btn btn-info mb-2">Detail</a>
+                        <form action="<?= site_url('simpan-orderan-diterima/'.$o['order_id'])?>" method="post" class="d-inline">
                           <?php csrf_field(); ?>
                           <input type="hidden" name="_method" value="PUT">
                           <button class="btn btn-success">Diterima</button>

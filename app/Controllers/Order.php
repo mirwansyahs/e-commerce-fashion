@@ -25,14 +25,13 @@ class Order extends BaseController
     public function detailOrderIn($id)
     {
         if ($id != null) {
-            $query = $this->db->table('order_items')
-                                ->join('order_details', 'order_details.id = order_items.order_id')
-                                ->join('user', 'user.id = order_details.user_id')
-                                ->join('product', 'product.id = order_items.product_id')
-                                ->join('order_delivery', 'order_delivery.id = order_details.delivery_id')
-                                ->join('payment_details', 'payment_details.id = order_details.payment_id')
+            $query = $this->db->table('order_product')
+                                ->join('user', 'user.id = order_product.user_id')
+                                ->join('product', 'product.id = order_product.product_id')
+                                ->join('order_delivery', 'order_delivery.id = order_product.delivery_id')
+                                ->join('payment_details', 'payment_details.id = order_product.payment_id')
                                 ->join('user_address', 'user_address.id = user.id')
-                                ->getWhere(['order_items_id' => $id]);
+                                ->getWhere(['order_id' => $id]);
 
             if ($query->resultID->num_rows > 0) {
                 $data = [
@@ -52,14 +51,13 @@ class Order extends BaseController
     public function print($id)
     {
         if ($id != null) {
-            $query = $this->db->table('order_items')
-                                ->join('order_details', 'order_details.id = order_items.order_id')
-                                ->join('user', 'user.id = order_details.user_id')
-                                ->join('product', 'product.id = order_items.product_id')
-                                ->join('order_delivery', 'order_delivery.id = order_details.delivery_id')
-                                ->join('payment_details', 'payment_details.id = order_details.payment_id')
+            $query = $this->db->table('order_product')
+                                ->join('user', 'user.id = order_product.user_id')
+                                ->join('product', 'product.id = order_product.product_id')
+                                ->join('order_delivery', 'order_delivery.id = order_product.delivery_id')
+                                ->join('payment_details', 'payment_details.id = order_product.payment_id')
                                 ->join('user_address', 'user_address.id = user.id')
-                                ->getWhere(['order_items_id' => $id]);
+                                ->getWhere(['order_id' => $id]);
 
             if ($query->resultID->num_rows > 0) {
                 $data = [
@@ -79,9 +77,9 @@ class Order extends BaseController
     public function viewSendResi()
     {
         if ($this->request->isAJAX()) {
-            $idorderitem = $this->request->getVar('idorderitem');
+            $order_id = $this->request->getVar('order_id');
 
-            $order = $this->order->find($idorderitem);
+            $order = $this->order->find($order_id);
 
             $data = [
                 'order' => $order
@@ -97,21 +95,15 @@ class Order extends BaseController
 
     public function sendResi($id)
     {
-        $order_id = $this->request->getVar('order_id');
         $resi = $this->request->getVar('resi');
 
         $paramstatus = [
-            'status_item' => 'delivery',
-        ];
-        
-        $this->db->table('order_items')->where(['order_items_id' => $id])->update($paramstatus);
-
-        $paramresi = [
+            'status_item'   => 'delivery',
             'resi'          => $resi,
             'delivery_date' => Time::now('Asia/Jakarta', 'en_ID')
         ];
-
-        $this->db->table('order_details')->where(['id' => $order_id])->update($paramresi);
+        
+        $this->db->table('order_product')->where(['order_id' => $id])->update($paramstatus);
 
         return redirect()->to(site_url('orderan-masuk'))->with('success', 'Selamat data berhasil diubah!');
     }
@@ -129,14 +121,13 @@ class Order extends BaseController
     public function detailOrderDelivery($id)
     {
         if ($id != null) {
-            $query = $this->db->table('order_items')
-                                ->join('order_details', 'order_details.id = order_items.order_id')
-                                ->join('user', 'user.id = order_details.user_id')
-                                ->join('product', 'product.id = order_items.product_id')
-                                ->join('order_delivery', 'order_delivery.id = order_details.delivery_id')
-                                ->join('payment_details', 'payment_details.id = order_details.payment_id')
+            $query = $this->db->table('order_product')
+                                ->join('user', 'user.id = order_product.user_id')
+                                ->join('product', 'product.id = order_product.product_id')
+                                ->join('order_delivery', 'order_delivery.id = order_product.delivery_id')
+                                ->join('payment_details', 'payment_details.id = order_product.payment_id')
                                 ->join('user_address', 'user_address.id = user.id')
-                                ->getWhere(['order_items_id' => $id]);
+                                ->getWhere(['order_id' => $id]);
 
             if ($query->resultID->num_rows > 0) {
                 $data = [
@@ -156,7 +147,8 @@ class Order extends BaseController
     public function saveOrderCompleted($id)
     {
         $param = [
-            'status_item' => 'complete'
+            'status_item'   => 'complete',
+            'date_received' => Time::now('Asia/Jakarta', 'en_ID'),
         ];
 
         $this->order->update($id, $param);
@@ -176,14 +168,13 @@ class Order extends BaseController
     public function detailOrderCompleted($id)
     {
         if ($id != null) {
-            $query = $this->db->table('order_items')
-                                ->join('order_details', 'order_details.id = order_items.order_id')
-                                ->join('user', 'user.id = order_details.user_id')
-                                ->join('product', 'product.id = order_items.product_id')
-                                ->join('order_delivery', 'order_delivery.id = order_details.delivery_id')
-                                ->join('payment_details', 'payment_details.id = order_details.payment_id')
+            $query = $this->db->table('order_product')
+                                ->join('user', 'user.id = order_product.user_id')
+                                ->join('product', 'product.id = order_product.product_id')
+                                ->join('order_delivery', 'order_delivery.id = order_product.delivery_id')
+                                ->join('payment_details', 'payment_details.id = order_product.payment_id')
                                 ->join('user_address', 'user_address.id = user.id')
-                                ->getWhere(['order_items_id' => $id]);
+                                ->getWhere(['order_id' => $id]);
 
             if ($query->resultID->num_rows > 0) {
                 $data = [

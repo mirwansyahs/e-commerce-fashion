@@ -5,9 +5,9 @@
 <!-- special products -->
 <section id="semua-produk" class="py-5">
     <div class="container">
-        <form action="<?= site_url('addCart')?>" method="post">
+        <form action="<?= site_url('addCart') ?>" method="post">
             <?= csrf_field(); ?>
-            <input type="hidden" name="product_id" value="<?= $product->product_id?>">
+            <input type="hidden" name="product_id" value="<?= $product->id ?>">
             <div class="row">
                 <div class="col-md-6 col-lg-6 text-center mb-3">
                     <a href=<?= site_url('produk-detail/') . $product->slug ?>>
@@ -21,7 +21,7 @@
                             <h5>
                                 <?php if ($d['discount_percent'] != 0) { ?><s class="text-danger h6">Rp <?= number_format($product->original_price, 0, ',', '.') ?></s><?php } ?>
                                 Rp <?= number_format($product->price, 0, ',', '.') ?>
-                                <input type="hidden" name="price" value="<?= $product->price?>">
+                                <input type="hidden" name="price" value="<?= $product->price ?>">
                             </h5>
                         <?php } ?>
                     <?php } ?>
@@ -36,24 +36,20 @@
                     </ul>
                     <h6 class="mt-2 fw-bold">Ukuran</h6>
                     <div class="selectgroup w-100">
-                        <?php if ($product->product_id) { ?>
-                            <?php foreach ($size as $s) { ?>
-                                <label class="selectgroup-item">
-                                    <input type="radio" name="size" value="<?= $s['size'] ?>" class="selectgroup-input">
-                                    <span class="selectgroup-button"><?= $s['size'] ?></span>
-                                </label>
-                            <?php } ?>
+                        <?php foreach ($size as $s) { ?>
+                            <label class="selectgroup-item">
+                                <input type="radio" name="size" value="<?= $s['size'] ?>" class="selectgroup-input">
+                                <span class="selectgroup-button"><?= $s['size'] ?></span>
+                            </label>
                         <?php } ?>
                     </div>
                     <h6 class="mt-2 fw-bold">Warna</h6>
                     <div class="selectgroup w-100 mb-3">
                         <?php foreach ($color as $c) { ?>
-                            <?php if ($product->color_id == $c['id']) { ?>
-                                <label class="selectgroup-item">
-                                    <input type="radio" name="color" value="<?= $c['color'] ?>" class="selectgroup-input">
-                                    <span class="selectgroup-button"><?= $c['color'] ?></span>
-                                </label>
-                            <?php } ?>
+                            <label class="selectgroup-item">
+                                <input type="radio" name="color" value="<?= $c['color'] ?>" class="selectgroup-input">
+                                <span class="selectgroup-button"><?= $c['color'] ?></span>
+                            </label>
                         <?php } ?>
                     </div>
 

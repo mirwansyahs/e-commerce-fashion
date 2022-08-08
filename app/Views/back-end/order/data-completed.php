@@ -69,7 +69,7 @@
                         <?php } ?>
                       </td>
                       <td>
-                        <a href="detail-orderan-diterima/<?= $o['order_items_id'] ?>" class="btn btn-info mb-2">Detail</a>
+                        <a href="detail-orderan-diterima/<?= $o['order_id'] ?>" class="btn btn-info mb-2">Detail</a>
                       </td>
                     </tr>
                 <?php }

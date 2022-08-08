@@ -84,36 +84,6 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-lg-12">
-                                        <div class="form-group">
-                                            <label class="form-label">Ukuran</label>
-                                            <div class="selectgroup selectgroup-pills">
-                                                <?php foreach ($size as $s) { ?>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="size[]" value="<?= $s['id'] ?>" class="selectgroup-input">
-                                                        <span class="selectgroup-button"><?= $s['size'] ?></span>
-                                                    </label>
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
-                                        <div class="form-group">
-                                            <label class="form-label">Warna</label>
-                                            <div class="selectgroup selectgroup-pills">
-                                                <?php foreach ($color as $c) { ?>
-                                                    <label class="selectgroup-item">
-                                                        <input type="checkbox" name="color[]" value="<?= $c['id'] ?>" class="selectgroup-input">
-                                                        <span class="selectgroup-button"><?= $c['color'] ?></span>
-                                                    </label>
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
                                         <label>Bahan</label>
                                         <input type="text" class="form-control" name="material">
                                         <div class="invalid-feedback">

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ColorModel;
+use App\Models\ProductModel;
 use CodeIgniter\I18n\Time;
 
 class Color extends BaseController
@@ -10,13 +11,16 @@ class Color extends BaseController
     public function __construct()
     {
         $this->color = new ColorModel();
+        $this->product = new ProductModel();
     }
 
     public function index()
     {
         $data = [
             'title' => 'Warna',
-            'color' => $this->color->findAll()
+            'color' => $this->color->select('color.*, product.name, product.image')
+                ->join('product', 'product.id = color.product_id')
+                ->orderBy('id', 'DESC')->get()->getResultArray()
         ];
         return view('back-end/color/data', $data);
     }
@@ -24,18 +28,21 @@ class Color extends BaseController
     public function add()
     {
         $data = [
-            'title' => 'Tambah Warna'
+            'title' => 'Tambah Warna',
+            'product' => $this->product->findAll(),
         ];
         return view('back-end/color/add', $data);
     }
 
     public function save()
     {
+        $product_id = $this->request->getVar('product');
         $color = $this->request->getVar('color');
 
         $params = [
-            'color' => $color,
-            'created_at' => Time::now('Asia/Jakarta', 'en_ID')
+            'color'         => $color,
+            'product_id'    => $product_id,
+            'created_at'    => Time::now('Asia/Jakarta', 'en_ID')
         ];
 
         $this->color->insert($params);
@@ -46,13 +53,14 @@ class Color extends BaseController
     {
         if ($id != null) {
             $query = $this->db->table('color')->getWhere(['id' => $id]);
-            
+
             if ($query->resultID->num_rows > 0) {
                 $data = [
                     'title' => 'Edit Warna',
                     'color' => $query->getRow(),
+                    'product' => $this->product->findAll(),
                 ];
-        
+
                 return view('back-end/color/edit', $data);
             } else {
                 throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -63,12 +71,14 @@ class Color extends BaseController
     }
 
     public function update($id)
-    { 
+    {
+        $product_id = $this->request->getVar('product');
         $color = $this->request->getVar('color');
 
         $param = [
-            'color' => $color,
-            'modified_at' => Time::now('Asia/Jakarta', 'en_ID')
+            'color'         => $color,
+            'product_id'    => $product_id,
+            'modified_at'   => Time::now('Asia/Jakarta', 'en_ID')
         ];
 
         $this->db->table('color')->where(['id' => $id])->update($param);

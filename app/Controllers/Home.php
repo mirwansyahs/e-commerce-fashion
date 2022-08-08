@@ -10,14 +10,12 @@ use App\Models\SizeModel;
 use App\Models\ColorModel;
 use App\Models\CartModel;
 use App\Models\SettingModel;
-use App\Models\ProductDetailModel;
 use App\Models\ProfileModel;
 use App\Models\UserAddressModel;
 use App\Models\DeliveryModel;
 use App\Models\ShoppingSessionModel;
 use App\Models\UserPaymentModel;
 use App\Models\PaymentDetailsModel;
-use App\Models\OrderDetailsModel;
 use App\Models\OrderModel;
 use CodeIgniter\I18n\Time;
 
@@ -33,14 +31,12 @@ class Home extends BaseController
         $this->color = new ColorModel();
         $this->cart = new CartModel();
         $this->setting = new SettingModel();
-        $this->detail = new ProductDetailModel();
         $this->profile = new ProfileModel();
         $this->address = new UserAddressModel();
         $this->delivery = new DeliveryModel();
         $this->shopping = new ShoppingSessionModel();
         $this->userPayment = new UserPaymentModel();
         $this->payment = new PaymentDetailsModel();
-        $this->orderDetails = new OrderDetailsModel();
         $this->order = new OrderModel();
         helper('array');
     }
@@ -48,7 +44,7 @@ class Home extends BaseController
     public function index()
     {
         $data = [
-            'recent_product' => $this->db->query('SELECT * FROM product ORDER BY product.id DESC LIMIT 8')->getResultArray(),
+            'recent_product' => $this->db->query("SELECT * FROM product ORDER BY product.id DESC LIMIT 8")->getResultArray(),
             'product' => $this->product->getAll(),
             'setting' => $this->product->getAll()
         ];
@@ -58,28 +54,19 @@ class Home extends BaseController
 
     public function detail($slug)
     {
-        if ($slug != null) {
-            $query = $this->detail->join('product', 'product.id = product_detail.product_id')
-                ->join('size', 'size.id = product_detail.size_id')
-                ->join('color', 'color.id = product_detail.color_id')
-                ->getWhere(['slug' => $slug]);
+        $query = $this->product->getWhere(['slug' => $slug])->getRow();
 
-            if ($query->resultID->num_rows > 0) {
-                $data = [
-                    'product' => $query->getRow(),
-                    'brand' => $this->brand->findAll(),
-                    'discount' => $this->discount->findAll(),
-                    'size' => $this->size->findAll(),
-                    'color' => $this->color->findAll(),
-                ];
+        $product_id = $query->id;
 
-                return view('front-end/product/detail', $data);
-            } else {
-                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-            }
-        } else {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
+        $data = [
+            'product' => $query,
+            'brand' => $this->brand->findAll(),
+            'discount' => $this->discount->findAll(),
+            'size' => $this->size->where('product_id', $product_id)->get()->getResultArray(),
+            'color' => $this->color->where('product_id', $product_id)->get()->getResultArray(),
+        ];
+
+        return view('front-end/product/detail', $data);
     }
 
     public function invoice()
@@ -135,25 +122,6 @@ class Home extends BaseController
 
     public function cart()
     {
-        // $invoice = 'INV0608220001';
-        // $orderDetails = $this->orderDetails->select('order_details.id as order_id')->where('invoice', $invoice)->get();
-        // $orderDetails = $this->db->query("SELECT id FROM order_details WHERE invoice = '$invoice'")->getResult();
-        // $cart = $this->cart->join('shopping_session', 'shopping_session.id = cart_item.session_id')
-        //     ->where('user_id', session('id'))->get()->getResultArray();
-        // foreach ($orderDetails as $o) {
-        //     foreach ($cart as $c) {
-        //         $orderParam[] = [
-        //             'order'         => $o['id'],
-        //             'product_id'    => $c['product_id'],
-        //             'size_item'     => $c['size'],
-        //             'color_item'    => $c['color'],
-        //             'qty'           => $c['quantity'],
-        //             'status_item'   => 'in',
-        //         ];
-        //     }
-        // }
-        // dd($orderParam);
-
         $data = [
             'cart'      => $this->cart->select('cart_item.*, product.image, product.name, product.price, shopping_session.user_id, shopping_session.total')
                 ->join('product', 'product.id = cart_item.product_id')
@@ -268,40 +236,25 @@ class Home extends BaseController
                 $payment_id = $p['id'];
             }
 
-            $shopping = $this->shopping->where('user_id', session('id'))->get()->getResultArray();
-            $orderDetailsParam = [];
+            $shopping = $this->cart->join('shopping_session', 'shopping_session.id = cart_item.session_id')
+                                ->where('user_id', session('id'))->get()->getResultArray();
+            $orderParam = [];
             foreach ($shopping as $s) {
-                $orderDetailsParam[] = [
+                $orderParam[] = [
                     'invoice'       => $invoice,
                     'user_id'       => session('id'),
+                    'product_id'    => $s['product_id'],
+                    'payment_id'    => $payment_id,
                     'delivery_id'   => $delivery_id,
+                    'size_item'     => $s['size'],
+                    'color_item'    => $s['color'],
+                    'qty'           => $s['quantity'],
+                    'status_item'   => 'in',
                     'subtotal'      => $s['total'],
                     'shiping'       => $shiping,
                     'total'         => $total,
-                    'payment_id'    => $payment_id,
                     'booking_date'  => Time::now('Asia/Jakarta', 'en_ID'),
                 ];
-            }
-
-            $this->orderDetails->insertBatch($orderDetailsParam);
-
-            $orderDetails = $this->orderDetails->where('invoice', $invoice)->get()->getResultArray();
-            $cart = $this->cart->join('shopping_session', 'shopping_session.id = cart_item.session_id')
-                ->where('user_id', session('id'))->get()->getResultArray();
-
-
-            $orderParam = [];
-            foreach ($orderDetails as $o) {
-                foreach ($cart as $c) {
-                    $orderParam[] = [
-                        'order'         => $o['id'],
-                        'product_id'    => $c['product_id'],
-                        'size_item'     => $c['size'],
-                        'color_item'    => $c['color'],
-                        'qty'           => $c['quantity'],
-                        'status_item'   => 'in',
-                    ];
-                }
             }
 
             $this->order->insertBatch($orderParam);
@@ -447,13 +400,12 @@ class Home extends BaseController
         return redirect()->to(site_url('ubah-alamat/' . $username))->with('success', 'Alamat berhasil diubah!');
     }
 
-    public function myOrder() 
+    public function myOrder()
     {
         $data = [
-            'order' => $this->order->select('order_items.*, order_details.resi, order_details.subtotal, order_details.booking_date, product.name, product.image')
-                                    ->join('order_details', 'order_details.id = order_items.order_id')
-                                    ->join('product', 'product.id = order_items.product_id')
-                                    ->where('user_id', session('id'))->get()->getResultArray()
+            'order' => $this->order->select('order_product.*, product.name, product.image')
+                ->join('product', 'product.id = order_product.product_id')
+                ->where('user_id', session('id'))->get()->getResultArray()
         ];
 
         return view('front-end/order/myOrder', $data);
@@ -462,10 +414,9 @@ class Home extends BaseController
     public function orderSent()
     {
         $data = [
-            'order' => $this->order->select('order_items.*, order_details.resi, order_details.subtotal, order_details.delivery_date, product.name, product.image')
-                                    ->join('order_details', 'order_details.id = order_items.order_id')
-                                    ->join('product', 'product.id = order_items.product_id')
-                                    ->where('user_id', session('id'))->get()->getResultArray()
+            'order' => $this->order->select('order_product.*, product.name, product.image')
+                ->join('product', 'product.id = order_product.product_id')
+                ->where('user_id', session('id'))->get()->getResultArray()
         ];
 
         return view('front-end/order/orderSent', $data);
@@ -474,7 +425,8 @@ class Home extends BaseController
     public function orderSentUpdate($id)
     {
         $param = [
-            'status_item' => 'complete'
+            'status_item'   => 'complete',
+            'date_received' => Time::now('Asia/Jakarta', 'en_ID'),
         ];
 
         $this->order->update($id, $param);
@@ -484,10 +436,9 @@ class Home extends BaseController
     public function orderAccepted()
     {
         $data = [
-            'order' => $this->order->select('order_items.*, order_details.resi, order_details.subtotal, order_details.date_received, product.name, product.image')
-                                    ->join('order_details', 'order_details.id = order_items.order_id')
-                                    ->join('product', 'product.id = order_items.product_id')
-                                    ->where('user_id', session('id'))->get()->getResultArray()
+            'order' => $this->order->select('order_product.*, product.name, product.image')
+                ->join('product', 'product.id = order_product.product_id')
+                ->where('user_id', session('id'))->get()->getResultArray()
         ];
 
         return view('front-end/order/orderAccepted', $data);
